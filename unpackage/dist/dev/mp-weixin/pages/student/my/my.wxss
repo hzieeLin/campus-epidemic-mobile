@@ -1,0 +1,80 @@
+.page-container.data-v-11cd46f2 {
+  width: 100vw;
+  height: 100vh;
+  background: #e0e0e0;
+}
+.page-container .top.data-v-11cd46f2 {
+  width: 100%;
+  height: 30%;
+  background-color: #fff;
+  display: flex;
+}
+.page-container .top .img-avatar.data-v-11cd46f2 {
+  flex-basis: 28%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.page-container .top .img-avatar .img.data-v-11cd46f2 {
+  width: 60%;
+  height: 36%;
+}
+.page-container .top .userinfo.data-v-11cd46f2 {
+  flex-basis: 56%;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+}
+.page-container .top .userinfo .info.data-v-11cd46f2 {
+  padding-left: 1rem;
+  width: 80%;
+  height: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.page-container .top .userinfo .info .stu-name.data-v-11cd46f2 {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+.page-container .top .code.data-v-11cd46f2 {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.page-container .btn-list.data-v-11cd46f2 {
+  margin-top: 2rem;
+  background-color: #fff;
+  height: 46%;
+}
+.page-container .btn-list .item.data-v-11cd46f2 {
+  height: 25%;
+  border-bottom: 1px solid #e0e0e0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.page-container .btn-list .item .left.data-v-11cd46f2 {
+  width: 30%;
+  padding-left: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #fff;
+}
+.page-container .two-scan.data-v-11cd46f2 {
+  margin-top: 2rem;
+  background-color: #fff;
+  width: 100%;
+  height: 46%;
+  position: relative;
+}
+.page-container .two-scan .content.data-v-11cd46f2 {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+

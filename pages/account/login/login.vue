@@ -1,0 +1,139 @@
+<template>
+	<view class="login-container">
+		<view class="top-img">
+			<image src="../../../static/account.jpeg" class="img" mode=""></image>
+			<view class="form-box">
+				  <form>  
+										<view class="uni-form-item uni-column">
+															<view class="title">学号/手机号</view>
+																		<input class="uni-input" placeholder="请输入账号" v-model="loginByCode.account"/>
+														</view>
+										<view class="uni-form-item uni-column">
+															<view class="title">密码</view>
+																		<input class="uni-input" placeholder="请输入密码" v-model="loginByCode.password" type="password"/>
+														</view>
+										<view class="btn" form-type="submit" @click="onSubmit">
+											登 录
+										</view>
+				        </form>  
+			</view>
+		</view>
+	</view>
+</template>
+
+<script>
+	import { mapMutations} from 'vuex'
+	import { accountLogin} from '../../../api/account/user.js'
+	import {setToken} from '../../../utils/auth.js'
+	export default {
+		onLoad() {
+			const token = uni.getStorageSync('token')
+			console.log(token);
+			if(token !== '') {
+				const tokenType = uni.getStorageSync('tokenType')
+				this.RolePaths(tokenType)
+			} else {
+				console.log(2);
+			}
+		},
+		data() {
+			return {
+				loginByCode: {
+					account: '1902010301',
+					// account: '0422',
+					password: '123456'
+				}
+			}
+		},
+		methods: {
+			...mapMutations('m_user',['updateUserInfo']),
+			...mapMutations('m_tabbar', ['updateTokenType']),
+			onSubmit() {
+				accountLogin(this.loginByCode).then(res => {
+					console.log(res);
+					this.updateTokenType(res.userType)
+					this.updateUserInfo(res.information)
+					uni.setStorageSync('token', res.token)
+					this.RolePaths(res.userType)
+				})
+			},
+			RolePaths(role) {
+				switch(JSON.parse(role)) {
+					case '学生':
+							uni.navigateTo({
+								url: '/pages/student/index/index'
+							})
+							break
+					case '防疫人员':
+							uni.navigateTo({
+								url: '/pages/epidemicPersonnel/index/index'
+							})
+							break
+					case '隔离人员':
+							console.log(1)
+							uni.navigateTo({
+								url: '/pages/isolationPersonnel/index/index'
+							})
+							break
+				}
+			}
+		}
+	}
+</script>
+
+<style lang="less" scoped>
+.login-container {
+	width: 100vw;
+	height: 100vh;
+}
+.top-img {
+	height: 70vh;
+	background-color: #e0e0e0;
+	position: relative;
+	.img {
+		width: 100%;
+		height: 100%;
+	}
+	.form-box	{
+		position: absolute;
+		width: 90%;
+		height: 45%;
+		border-radius: 1rem;
+		background-color: #fff;
+		left: 50%;
+		bottom: -10%;
+		transform: translate(-50%, 0%);
+		box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
+		.uni-form-item {
+			margin: 1rem 1rem 0 1rem;
+			height: 30%;
+			border-bottom: 1px solid #e0e0e0;
+			display: flex;
+			flex-direction: column;
+			.title {
+				font-size: 1rem;
+				font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+			}
+			input {
+				flex: 1;
+				font-size: 1.2rem;
+			}
+		}
+		.btn {
+			position: absolute;
+			left: 50%;
+			bottom: -10%;
+			transform: translate(-50%, 0%);
+			width: 90%;
+			border-radius: 1.2rem;
+			text-align: center;
+			font-size: 1.1rem;
+			height: 3.2rem;
+			line-height: 3.2rem;
+			color: #fff;
+			background-color: #5680FA;
+			box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+		}
+	}
+}
+</style>

@@ -1,0 +1,26 @@
+.page-container.data-v-58ddb906 {
+  width: 100vw;
+  height: 95vh;
+  background-color: #fafafa;
+  display: flex;
+  flex-direction: column;
+}
+.page-container .top-notice.data-v-58ddb906 {
+  height: 30%;
+  background-color: aqua;
+  margin-bottom: 1vh;
+}
+.page-container .form.data-v-58ddb906 {
+  flex: 1;
+}
+.page-container .form .u-form .u-form-item.data-v-58ddb906 {
+  padding: 0 1vw;
+  height: 50px;
+  margin-bottom: 1vh;
+  background-color: #fff;
+}
+.page-container .btn.data-v-58ddb906 {
+  flex-basis: 10%;
+  padding: 0 10vw;
+}
+

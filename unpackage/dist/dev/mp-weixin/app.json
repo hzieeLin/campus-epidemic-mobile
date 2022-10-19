@@ -1,0 +1,23 @@
+{
+  "pages": [
+    "pages/account/login/login",
+    "pages/epidemicPersonnel/index/index",
+    "pages/epidemicPersonnel/index/openCard",
+    "pages/student/my/my",
+    "pages/student/scan/scan",
+    "pages/isolationPersonnel/index/index",
+    "pages/student/index/index",
+    "pages/student/index/leave"
+  ],
+  "subPackages": [],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "信工时刻",
+    "navigationBarBackgroundColor": "#e0e0e0",
+    "backgroundColor": "#e0e0e0"
+  },
+  "tabBar": {
+    "list": []
+  },
+  "usingComponents": {}
+}

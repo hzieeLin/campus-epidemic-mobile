@@ -1,0 +1,12 @@
+
+
+
+
+/*每个页面公共css */
+:not(not) {
+			/* *所有选择器 */
+			margin: 0;
+			padding: 0;
+		  box-sizing: border-box;
+}
+

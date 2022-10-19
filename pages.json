@@ -1,0 +1,193 @@
+{
+	"easycom": {
+			"autoscan": true,
+			"custom": {
+				// uni-ui 规则如下配置
+				"^uni-(.*)": "@dcloudio/uni-ui/lib/uni-$1/uni-$1.vue"
+			}
+		},
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+			"path": "pages/account/login/login",
+			"style": {
+				"navigationBarTitleText": ""
+			}
+		},
+		{
+			"path": "pages/epidemicPersonnel/index/index",
+			"style": {
+					"navigationStyle": "custom" 
+			}
+		},
+		{
+			"path": "pages/epidemicPersonnel/index/openCard",
+			"style": {
+				"navigationBarTitleText": "日常健康打卡"
+			}
+		},
+		{
+			"path": "pages/student/index/openCard",
+			"style": {
+				"navigationBarTitleText": "每日健康打卡"
+			}
+		},
+		{
+			"path": "pages/student/my/my",
+			"style": {
+				  "navigationBarTitleText": "我的"
+			//	"navigationStyle": "" //移除顶部标题导航栏
+			}
+		},
+		{
+      "path" : "pages/student/scan/scan",
+      "style" : {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+      }
+    },
+		{
+      "path" : "pages/isolationPersonnel/index/index",
+      "style" : {
+								"navigationStyle": "custom" 
+            }
+            
+    },
+		{
+      "path" : "pages/isolationPersonnel/index/message",
+      "style" : {
+								"navigationStyle": "反馈记录" 
+            }
+            
+    },
+    { 
+			"path" : "pages/isolationPersonnel/my/my",
+      "style" : {
+							"navigationBarTitleText": "我的"
+            }
+            
+    },
+		{
+      "path" : "pages/student/index/index",
+      "style" :  {
+                "navigationStyle": "custom" //移除顶部标题导航栏
+            }
+            
+    },
+				{
+				    "path" : "pages/student/index/leave",
+				    "style" :                                                                                    
+				    {
+							"navigationBarTitleText": "出校审批"
+				    }
+				    
+				},
+				{
+				    "path" : "pages/student/index/back",
+				    "style" :                                                                                    
+				    {
+							"navigationBarTitleText": "返校审批"
+				    }
+				    
+				},
+				{
+				    "path" : "pages/student/index/vacation",
+				    "style" :                                                                                    
+				    {
+							"navigationBarTitleText": "消息相关"
+				    }
+				    
+				},
+				{
+				    "path" : "pages/epidemicPersonnel/index/feedback",
+				    "style" :                                                                                    
+				    {
+							"navigationBarTitleText": "反馈处理"
+				    }
+				    
+				}
+        ,{
+            "path" : "pages/epidemicPersonnel/my/my",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/epidemicPersonnel/scan/scan",
+            "style" :                                                                                    
+            {
+                "navigationStyle": "custom" 
+            }
+            
+        }
+        ,{
+            "path" : "pages/epidemicPersonnel/index/myFeed/myFeed",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "个人反馈",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/common/subSuccess/subSuccess",
+            "style" :                                                                                    
+            {
+                "navigationStyle": "custom" 
+            }
+            
+        }
+        ,{
+            "path" : "pages/isolationPersonnel/index/myFeed/myFeed",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "个人反馈",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/isolationPersonnel/index/openCard/openCard",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "每日健康打卡",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/isolationPersonnel/index/record/record",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+    ],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "信工时刻",
+		"navigationBarBackgroundColor": "#ffffff",
+		"backgroundColor": "#e0e0e0",
+		"app-plus": {
+			"background": "#e0e0e0"
+		}
+	},
+	"tabBar": {
+		"list": [
+		]
+	},
+	"condition" : { //模式配置，仅开发期间生效
+		"current": 0, //当前激活的模式(list 的索引项)
+		"list": [
+			{
+				"name": "", //模式名称
+				"path": "", //启动页面，必选
+				"query": "" //启动参数，在页面的onLoad函数里面得到
+			}
+		]
+	}
+}
