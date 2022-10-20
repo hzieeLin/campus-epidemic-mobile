@@ -36,6 +36,11 @@ export default {
 		groupChange(e) {
 			this.feedInfo.type = e;
 		},
+		haClick() {
+			uni.navigateTo({
+				url: '/pages/common/subSuccess/subSuccess'
+			})
+		},
 		submit() {
 			if (this.feedInfo.type === null) {
 				this.$refs.uNotify.show({

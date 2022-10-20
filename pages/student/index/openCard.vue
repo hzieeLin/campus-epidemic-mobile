@@ -10,7 +10,7 @@
 			<view class="form-item">
 				<view class="form-item-label">1.当前地点</view>
 				<view class="form-item-content">
-					<u--text :text="formData.position" size="30"></u--text>
+					<u--text :text="formData.preciseArea" size="30"></u--text>
 					<!-- <u--text text="浙江省杭州市西湖区德利希大厦学院路28号" size="30"></u--text> -->
 					<u-icon name="reload" @click="getLoaction"></u-icon>
 				</view>
@@ -19,12 +19,11 @@
 				<view class="form-item-label">2.体温是否正常(小于37.3℃)</view>
 				<view class="form-item-content">
 					<u-radio-group
-					  v-model="formData.temperature"
+					  v-model="formData.temperatureAbnormal"
 					  placement="column"
-					  @change="groupChange"
 					>
-					<u-radio label="是" name="0" size="30" :customStyle="{marginBottom: '8px'}"></u-radio>
-					<u-radio label="否" name="1" size="30"></u-radio>
+					<u-radio label="是" name="0" size="40" :customStyle="{marginBottom: '8px'}"></u-radio>
+					<u-radio label="否" name="1" size="40"></u-radio>
 					</u-radio-group>
 				</view>
 			</view>
@@ -32,12 +31,11 @@
 				<view class="form-item-label">3.是否存在发热,干咳,乏力等症状</view>
 				<view class="form-item-content">
 					<u-radio-group
-					  v-model="formData.cough"
+					  v-model="formData.abnormalSymptoms"
 					  placement="column"
-					  @change="groupChange(1)"
 					>
-					<u-radio label="是" name="0" size="30" :customStyle="{marginBottom: '8px'}"></u-radio>
-					<u-radio label="否" name="1" size="30"></u-radio>
+					<u-radio label="是" name="0" size="40" :customStyle="{marginBottom: '8px'}"></u-radio>
+					<u-radio label="否" name="1" size="40"></u-radio>
 					</u-radio-group>
 				</view>
 			</view>
@@ -45,46 +43,46 @@
 				<view class="form-item-label">4.健康码颜色</view>
 				<view class="form-item-content">
 					<u-radio-group
-					  :v-model="formData.color"
-						@change="groupChange">
-						<u-radio label="绿码" name="0" size="30" :customStyle="{marginRight: '8px'}"></u-radio>
-						<u-radio label="黄码" name="1" size="30" :customStyle="{marginRight: '8px'}"></u-radio>
-						<u-radio label="红码" name="2" size="30"></u-radio>
-						</u-radio-group>
+					  v-model="formData.healthCode"
+					>
+					<u-radio label="绿" name="0" size="40" :customStyle="{marginRight: '8px'}"></u-radio>
+					<u-radio label="黄" name="1" size="40" :customStyle="{marginRight: '8px'}"></u-radio>
+					<u-radio label="红" name="2" size="40"></u-radio>
+					</u-radio-group>
 				</view>
 			</view>
 			<view class="form-item">
 				<view class="form-item-label">5.本人承诺以上提供的资料真实准确</view>
 				<view class="form-item-content">
 					<u-radio-group
-					  v-model="formData.agree"
+					  v-model="formData.promise"
 					  placement="column"
-					  @change="groupChange(1)"
 					>
-					<u-radio label="是" name="0" size="30" :customStyle="{marginBottom: '8px'}"></u-radio>
-					<u-radio label="否" name="1" size="30"></u-radio>
+					<u-radio label="是" name="0" size="40" :customStyle="{marginBottom: '8px'}"></u-radio>
+					<u-radio label="否" name="1" size="40"></u-radio>
 					</u-radio-group>
 				</view>
 			</view>
 		</view>
 		<view class="btn">
-				<u-button type="primary" @click="submitLeave">提交</u-button>
+				<u-button type="primary" @click="submitAdd">提交</u-button>
 		</view>
 	</view>
 </template>
 
 <script>
+	import { AddStudentDaily} from '../../../api/student/insert.js'
 	export default {
 		onLoad() {
 		},
 		data() {
 			return {
 				formData: {
-					position: '',
-					temperature: null,
-					cough: null,
-					color: null,
-					agree: null
+					preciseArea: '',
+					temperatureAbnormal: null,
+					abnormalSymptoms: null,
+					healthCode: null,
+					promise: null
 				}
 			}
 		},
@@ -100,33 +98,36 @@
 						// this.addressList.province = res.address.province
 						console.log(JSON.stringify(res.address));
 						console.log(`${res.address.province}${res.address.city}${res.address.district}${res.address.street}${res.address.streetNum}${res.address.poiName}`);
-						this.formData.position = JSON.parse(JSON.stringify(`${res.address.province}${res.address.city}${res.address.district}${res.address.street}${res.address.streetNum}${res.address.poiName}`))
+						this.formData.preciseArea = JSON.parse(JSON.stringify(`${res.address.province}${res.address.city}${res.address.district}${res.address.street}${res.address.streetNum}${res.address.poiName}`))
 					}
 				})
 			},
-			groupChange() {
-				console.log(arguments);
-				console.log(state);
-				console.log(n);
-			},
-			submitLeave() {
-				
+			submitAdd() {
+				AddStudentDaily(this.formData).then(() => {
+					uni.navigateTo({
+						url: '/pages/common/subSuccess/subSuccess'
+					})
+				}).catch((err) => {
+					console.log(err);
+				})
 			}
 		}
 	}
 </script>
 
 <style lang="less" scoped>
-	.page-container {
+.page-container {
 		width: 100vw;
+		height: 96vh;
 		min-height: 100vh;
 		display: flex;
 		flex-direction: column;
 		background-color: #f1f1f1;
 		justify-content: space-between;
 		.top-notice {
+			min-height: 20vh;
 			margin-bottom: 1vh;
-			padding: 0 10rpx;
+			padding: 0 1vh;
 			overflow: auto;
 			background-color: #f1f1f1;
 			color: #868686;
@@ -137,7 +138,9 @@
 			.form-item {
 				height: 100px;
 				background-color: #fff;
-				margin-bottom: 1vh;
+				margin: 0 1vh 1vh;
+				border-radius: 10px;
+				padding: 10rpx;
 				display: flex;
 				flex-direction: column;
 				.form-item-label {

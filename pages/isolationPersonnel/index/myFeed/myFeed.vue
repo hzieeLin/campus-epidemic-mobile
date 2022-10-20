@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import { AddEpidemicAppFeedbackAcceptance } from '@/api/isolation.js';
+import { AddFeedbackAcceptanceByIsolation } from '@/api/isolation.js';
 export default {
 	onReady() {
 	},
@@ -62,7 +62,7 @@ export default {
 					safeAreaInsetTop: true
 				});
 			} else {
-				AddEpidemicAppFeedbackAcceptance(this.feedInfo).then(() => {
+				AddFeedbackAcceptanceByIsolation(this.feedInfo).then(() => {
 					uni.navigateTo({
 						url: '/pages/common/subSuccess/subSuccess'
 					})

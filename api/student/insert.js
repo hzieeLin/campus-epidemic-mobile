@@ -8,3 +8,21 @@ export function AddLeave(data) {
 		data
 	})
 }
+
+export function AddStudentDaily(data) {
+	return request({
+		url: `/app/studentDaily/addStudentDaily`,
+		method: 'post',
+		header: {'Authorization': uni.getStorageSync('token')},
+		data
+	})
+}
+
+export function DealReturnLeave(data) {
+	return request({
+		url: `/app/leave/returnLeaveToAdminMessage`,
+		method: 'post',
+		header: {'Authorization': uni.getStorageSync('token')},
+		data
+	})
+}

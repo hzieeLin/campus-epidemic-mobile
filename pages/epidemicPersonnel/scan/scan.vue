@@ -32,7 +32,7 @@
 			console.log(option.id);
 			this.userId = option.id
 			this.userTime = option.time
-			// this.getStuInfo()
+			this.getStuInfo()
 		},
 		data() {
 			return {
@@ -40,11 +40,11 @@
 				userId: '',
 				userTime: '',
 				stuInfo: {
-					code: '199200118',
-					name: '林世宏',
-					majorName: '计算机科学与技术',
-					className: '计科1班',
-					phone: '19858104405'
+					code: '',
+					name: '',
+					majorName: '',
+					className: '',
+					phone: ''
 				}
 			}
 		},
@@ -54,7 +54,9 @@
 					id: this.userId,
 					time: this.userTime
 				}
+				console.log(data);
 				GetStuInfo(data).then((res) => {
+					console.log(res);
 					this.stuInfo.code = res.data.code
 					this.stuInfo.name = res.data.name
 					this.stuInfo.majorName = res.data.majorName
@@ -77,7 +79,8 @@
 			},
 			handleLiftIsolation() {
 				const data = {
-					id: this.userId
+					id: "1562791600331968514"
+					
 				}
 				IsolationOperation(data).then((res) => {
 					uni.showToast({

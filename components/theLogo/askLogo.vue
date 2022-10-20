@@ -4,7 +4,7 @@
       <span class="inner-text">已通过</span>
     </div>
   </div>
- <div class="logo-box2" v-else-if="type === 0">
+ <div class="logo-box2" v-else-if="type === 2">
     <div class="inner-box2">
       <span class="inner-text2">未通过</span>
     </div>

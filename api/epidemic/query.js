@@ -5,7 +5,7 @@ export function GetStuInfo(data) {
 		url: '/app/student/scanCodeGetStudentInformation',
 		method: 'get',
 		header: {'Authorization': uni.getStorageSync('token')},
-		params: {...data}
+		data
 	})
 }
 // 隔离操作
@@ -14,7 +14,7 @@ export function IsolationOperation(data) {
 		url: '/app/isolationPerson/isolationOperation',
 		method: 'get',
 		header: {'Authorization': uni.getStorageSync('token')},
-		params: {...data}
+		data: JSON.stringify(data)
 	})
 }
 // 解除隔离
@@ -23,6 +23,6 @@ export function LiftIsolationOperation(data) {
 		url: '/app/isolationPerson/liftIsolationOperation',
 		method: 'get',
 		header: {'Authorization': uni.getStorageSync('token')},
-		params: {...data}
+		data
 	})
 }

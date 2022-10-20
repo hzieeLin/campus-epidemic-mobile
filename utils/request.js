@@ -1,7 +1,6 @@
 const reqest = (config) => {
 	// https://49t17g0193.zicp.fun/campus-epidemic-system
 	config.url = 'https://49t17g0193.zicp.fun/campus-epidemic-system'+ config.url
-	// config.url = '/jixian'+ config.url
 	if(!config.data) {
 		config.data = {}
 	}
@@ -19,7 +18,7 @@ return new Promise((resolve,reject) => {
 										console.log(res.data.message)
 										uni.showToast({
 												title: `${res.data.message}`,
-												icon: 'error',
+												icon: 'none',
 												duration: 2000
 										});
 										break
@@ -27,7 +26,7 @@ return new Promise((resolve,reject) => {
 										console.log(res.data.message)
 										uni.showToast({
 												title: `${res.data.message}`,
-												icon: 'error',
+												icon: 'none',
 												duration: 2000
 										});
 								}

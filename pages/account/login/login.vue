@@ -3,82 +3,75 @@
 		<view class="top-img">
 			<image src="../../../static/account.jpeg" class="img" mode=""></image>
 			<view class="form-box">
-				  <form>  
-										<view class="uni-form-item uni-column">
-															<view class="title">学号/手机号</view>
-																		<input class="uni-input" placeholder="请输入账号" v-model="loginByCode.account"/>
-														</view>
-										<view class="uni-form-item uni-column">
-															<view class="title">密码</view>
-																		<input class="uni-input" placeholder="请输入密码" v-model="loginByCode.password" type="password"/>
-														</view>
-										<view class="btn" form-type="submit" @click="onSubmit">
-											登 录
-										</view>
-				        </form>  
+				<form>
+					<view class="uni-form-item uni-column">
+						<view class="title">学号/手机号</view>
+						<input class="uni-input" placeholder="请输入账号" v-model="loginByCode.account" />
+					</view>
+					<view class="uni-form-item uni-column">
+						<view class="title">密码</view>
+						<input class="uni-input" placeholder="请输入密码" v-model="loginByCode.password" type="password" />
+					</view>
+					<view class="btn" form-type="submit" @click="onSubmit">登 录</view>
+				</form>
 			</view>
 		</view>
 	</view>
 </template>
 
 <script>
-	import { mapMutations} from 'vuex'
-	import { accountLogin} from '../../../api/account/user.js'
-	import {setToken} from '../../../utils/auth.js'
-	export default {
-		onLoad() {
-			const token = uni.getStorageSync('token')
-			console.log(token);
-			if(token !== '') {
-				const tokenType = uni.getStorageSync('tokenType')
-				this.RolePaths(tokenType)
-			} else {
-				console.log(2);
+import { mapMutations } from 'vuex';
+import { accountLogin } from '../../../api/account/user.js';
+import { setToken } from '../../../utils/auth.js';
+export default {
+	onLoad() {
+		const token = uni.getStorageSync('token');
+		console.log(token);
+		if (token !== '') {
+			const tokenType = uni.getStorageSync('tokenType');
+			this.RolePaths(tokenType);
+		} else {
+			console.log(2);
+		}
+	},
+	data() {
+		return {
+			loginByCode: {
+				account: '1902010301',
+				// account: '0422',
+				password: '123456'
 			}
+		};
+	},
+	methods: {
+		...mapMutations('m_user', ['updateUserInfo']),
+		...mapMutations('m_tabbar', ['updateTokenType']),
+		onSubmit() {
+			accountLogin(this.loginByCode).then(res => {
+				console.log(res);
+				this.updateTokenType(res.userType);
+				this.updateUserInfo(res.information);
+				uni.setStorageSync('token', res.token);
+				this.RolePaths(res.userType);
+			});
 		},
-		data() {
-			return {
-				loginByCode: {
-					account: '1902010301',
-					// account: '0422',
-					password: '123456'
-				}
-			}
-		},
-		methods: {
-			...mapMutations('m_user',['updateUserInfo']),
-			...mapMutations('m_tabbar', ['updateTokenType']),
-			onSubmit() {
-				accountLogin(this.loginByCode).then(res => {
-					console.log(res);
-					this.updateTokenType(res.userType)
-					this.updateUserInfo(res.information)
-					uni.setStorageSync('token', res.token)
-					this.RolePaths(res.userType)
-				})
-			},
-			RolePaths(role) {
-				switch(JSON.parse(role)) {
-					case '学生':
-							uni.navigateTo({
-								url: '/pages/student/index/index'
-							})
-							break
-					case '防疫人员':
-							uni.navigateTo({
-								url: '/pages/epidemicPersonnel/index/index'
-							})
-							break
-					case '隔离人员':
-							console.log(1)
-							uni.navigateTo({
-								url: '/pages/isolationPersonnel/index/index'
-							})
-							break
-				}
+		RolePaths(role) {
+			if (role.indexOf('学生') >= 0) {
+				uni.navigateTo({
+					url: '/pages/student/index/index'
+				});
+			} else if (role.indexOf('防疫人员') >= 0) {
+				uni.navigateTo({
+					url: '/pages/epidemicPersonnel/index/index'
+				});
+			} else if (role.indexOf('隔离人员') >= 0) {
+				uni.navigateTo({
+					url: '/pages/isolationPersonnel/index/index'
+				});
 			}
 		}
 	}
+};
 </script>
 
 <style lang="less" scoped>
@@ -94,7 +87,7 @@
 		width: 100%;
 		height: 100%;
 	}
-	.form-box	{
+	.form-box {
 		position: absolute;
 		width: 90%;
 		height: 45%;
@@ -131,7 +124,7 @@
 			height: 3.2rem;
 			line-height: 3.2rem;
 			color: #fff;
-			background-color: #5680FA;
+			background-color: #5680fa;
 			box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
 		}
 	}

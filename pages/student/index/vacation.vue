@@ -8,64 +8,63 @@
 				</view>
 				<view class="list-item" style="visibility: hidden;">
 					<view>已处理</view>
-					<view>0</view>
+					<view>{{topList[0].num}}</view>
 				</view>
 				<view class="list-item">
 					<view @click="showDetailVisible = 1">历史记录</view>
-					<view>2</view>
+					<view>{{topList[1].num}}</view>
 				</view>
 			</view>
 		</view>
 		<view class="history-list" v-if="showDetailVisible === 1">
 			<view class="list-item" v-for="item in historyList" :key="item.id" @click="showDetail(item.id)">
 				<view class="item-top">
-					<view style="font-weight: 500;">{{ item.name }}的请假审批单</view>
+					<view style="font-weight: 500;">{{ userinfo.name }}的请假审批单</view>
 					<!-- <view>{{getTime}}</view> -->
 				</view>
 				<view class="item-centent">
-					<view>是否知晓请假出校的规则：{{ item.isRemember === 1 ? '是' : '否' }}</view>
-					<view>当前时间：{{ item.startTime }}</view>
+					<view>当前时间：{{ item.updateTime }}</view>
 				</view>
 				<view class="item-bottom">
 					<view>由{{ item.name }}提交</view>
-					<view :style="item.result === 1 ? { color: '#00aa00' } : { color: '#ff0000' }">{{ item.result === 1 ? '审核通过' : '审核未通过' }}</view>
+					<view >{{leaveResults(item.approvalResult)}}</view>
 				</view>
 			</view>
 		</view>
 		<view class="message-list" v-else-if="showDetailVisible === 3">
-			<view class="detail-mid" v-show="topList[0].num !== 0">
+			<view class="detail-mid" v-show="topList[0].num == 0">
+				<view>审批编号</view>
+				<view>{{ detailList.id }}</view>
+				<view>信息相关</view>
+				<view>学生-{{ userinfo.deptName }}-{{ userinfo.majorName }}-{{ userinfo.className }}</view>
 				<view>请假类型</view>
-				<view>事假</view>
+				<view>{{detailList.type === 0 ? '事假' : '病假'}}</view>
 				<view>预计出校时间</view>
-				<view>2022-09-09 00：00：00</view>
+				<view>{{detailList.estimateStartTime}}</view>
 				<view>预计返校校时间</view>
-				<view>2022-09-09 00：00：00</view>
+				<view>{{detailList.estimateEndTime}}</view>
 				<view>请假去向</view>
-				<view>xxxxx</view>
+				<view>{{}}</view>
 				<view>请假原因</view>
-				<view>xxxxxxxxxx</view>
+				<view>{{detailList.reason}}</view>
 			</view>
 			<scroll-view scroll-y="true" :scroll-top="topNum" class="message-box" ref="msgBox" id="msgId">
-				<view v-if="topList[0].num !== 0">
+				<view v-if="topList[0].num == 0">
 					<view v-for="(item, index) in charList" :key="item.id">
-						<view v-if="item.type === 1 || item.type === 3 || item.type === 2" style="text-align: center">{{ item.time }}</view>
+						<view>{{item.time}}</view>
+						<view v-if="item.type === 1 || item.type === 3 || item.type === 2" style="text-align: center">{{ item.createTime }}</view>
 						<view class="chat-item" :style="item.type === 1 || item.type === 3 ? 'flex-direction: row-reverse;' : 'flex-direction: row;'">
-							<!-- <img src="../../../../assets/images/touxiang.png" style="height: 40px;width: 40px; margin-top: 3px" alt=""> -->
+							<u-icon></u-icon>
 							<view class="msg" :style="item.type === 1 || item.type === 3  ? 'margin-right: 10px;background: #00aaff; color: #fff' : 'margin-left: 10px;'">{{ item.message }}</view>
 						</view>
 					</view>
 				</view>
 				<view v-else style="text-align: center;">
-					<u-empty
-					        mode="message"
-					        icon="http://cdn.uviewui.com/uview/empty/message.png"
-					>
-					</u-empty>
 				</view>
 			</scroll-view>
-			<view class="input-box" v-show="topList[0].num !== 0">
+			<view class="input-box" v-show="topList[0].num == 0">
 				<u--input placeholder="请输入内容" border="surround" v-model="inputValue"></u--input>
-				<view><u-button type="primary" :disabled="inputDisabled">发送</u-button></view>
+				<view><u-button type="primary" :disabled="inputDisabled" @click="dealReturnLeave">发送</u-button></view>
 			</view>
 		</view>
 			
@@ -75,8 +74,8 @@
 					<view>{{ detailList.name }}的请假审批单</view>
 					<view>杭州电子科技大学信息工程学院</view>
 				</view>
-				<view :style="detailList.result === 1 ? { color: '#00aa00' } : { color: '#ff0000' }">{{ detailList.result === 1 ? '审核通过' : '审核未通过' }}</view>
-				<view class="logo"><askLogo :type="detailList.result"></askLogo></view>
+				<view >{{ leaveResults(detailList.approvalResult)}}</view>
+				<view class="logo"><askLogo :type="detailList.approvalResult"></askLogo></view>
 			</view>
 			<view class="detail-mid">
 				<view>审批编号</view>
@@ -84,21 +83,21 @@
 				<view>信息相关</view>
 				<view>学生-{{ userinfo.deptName }}-{{ userinfo.majorName }}-{{ userinfo.className }}</view>
 				<view>请假类型</view>
-				<view>事假</view>
+				<view>{{detailList.type === 0 ? '事假' : '病假'}}</view>
 				<view>预计出校时间</view>
-				<view>2022-09-09 00：00：00</view>
+				<view>{{detailList.estimateStartTime}}</view>
 				<view>预计返校校时间</view>
-				<view>2022-09-09 00：00：00</view>
+				<view>{{detailList.estimateEndTime}}</view>
 				<view>请假去向</view>
-				<view>xxxxx</view>
+				<view>{{}}</view>
 				<view>请假原因</view>
-				<view>xxxxxxxxxx</view>
+				<view>{{detailList.reason}}</view>
 			</view>
 			<view class="detail-bottom">
 				<view>流程</view>
 				<u-steps direction="column" current="2">
 					<u-steps-item title="发起申请" :desc="detailList.name"></u-steps-item>
-					<u-steps-item title="审批人" desc="琳琳"></u-steps-item>
+					<u-steps-item title="审批人" desc="管理员"></u-steps-item>
 				</u-steps>
 			</view>
 		</view>
@@ -109,9 +108,15 @@
 import { mapState } from 'vuex';
 import { dateFormat } from '../../../utils/date.js';
 import askLogo from '../../../components/theLogo/askLogo.vue';
+import { DealReturnLeave } from '@/api/student/insert.js'
+import {GetLeaveMessagesNumber, QueryHistoryList, QueryLeaveDetail, QueryStreetList} from '@/api/student/query.js'
 export default {
 	components: {
 		askLogo
+	},
+	created() {
+		this.getMsgList();
+		this.getHistoryList();
 	},
 	data() {
 		return {
@@ -123,130 +128,13 @@ export default {
 			inputValue: '',
 			inputDisabled: true,
 			showDetailVisible: 3,
-			historyList: [
-				{ id: '1123123213124', name: '张三', isRemember: 1, startTime: '2022-09-22 00:00:00', result: 1 },
-				{ id: '1123123213122', name: '张三', isRemember: 1, startTime: '2022-09-22 00:00:00', result: 1 },
-				{ id: '1123123213123', name: '张三', isRemember: 1, startTime: '2022-09-22 00:00:00', result: 0 },
-				{ id: '1123123213144', name: '张三', isRemember: 1, startTime: '2022-09-22 00:00:00', result: 1 },
-				{ id: '1123123213125', name: '张三', isRemember: 1, startTime: '2022-09-22 00:00:00', result: 0 }
-			],
-			charList: [
-				{
-					id: '1567525304736440321',
-					type: 1,
-					message: '测试同城同天但是信誉不好',
-					time: '2022-09-07 22:48:51'
-				},
-				{
-					id: '1567541947143307265',
-					type: 2,
-					message: '你在想什么？？？',
-					time: '2022-09-07 23:54:58'
-				},
-				{
-					id: '1567552449290559490',
-					type: 3,
-					message: '你在狗叫什么？？？',
-					time: '2022-09-08 00:36:42'
-				},
-				{
-					id: '1567553439133716482',
-					type: 2,
-					message: '你再叫叫试试？？',
-					time: '2022-09-08 00:40:38'
-				},
-				{
-					id: '1567553516225024001',
-					type: 3,
-					message: '你废了！不让学生请假！！',
-					time: '2022-09-08 00:40:57'
-				},
-				{
-					id: '1567553619274878977',
-					type: 2,
-					message: '你敢骂老师！你前途没有了！！',
-					time: '2022-09-08 00:41:21'
-				},
-				{
-					id: '1567553708282204162',
-					type: 3,
-					message: '你给我提前途，我们不能出校就有前途了？？',
-					time: '2022-09-08 00:41:42'
-				},
-				{
-					id: '1568443311276978177',
-					type: 2,
-					message: '真的想笑',
-					time: '2022-09-10 11:36:40'
-				},
-				{
-					id: '1568445099719790593',
-					type: 2,
-					message: '怎么不说话了？？',
-					time: '2022-09-10 11:43:47'
-				},
-				{
-					id: '1568445144489791489',
-					type: 2,
-					message: '你聋吗？',
-					time: '2022-09-10 11:43:57'
-				},
-				{
-					id: '1568445320155631618',
-					type: 2,
-					message: '还不讲话是不是想死阿\n',
-					time: '2022-09-10 11:44:39'
-				},
-				{
-					id: '1568445640294273025',
-					type: 2,
-					message: '真的',
-					time: '2022-09-10 11:45:56'
-				},
-				{
-					id: '1568446064925609985',
-					type: 2,
-					message: '111',
-					time: '2022-09-10 11:47:37'
-				},
-				{
-					id: '1568451718667046913',
-					type: 2,
-					message: '1',
-					time: '2022-09-10 12:10:05'
-				},
-				{
-					id: '1568516197631135745',
-					type: 2,
-					message: '2',
-					time: '2022-09-10 16:26:18'
-				},
-				{
-					id: '1568516409795809281',
-					type: 2,
-					message: '3',
-					time: '2022-09-10 16:27:08'
-				},
-				{
-					id: '1568516433787228162',
-					type: 2,
-					message: '4',
-					time: '2022-09-10 16:27:14'
-				},
-				{
-					id: '1568516447892672514',
-					type: 2,
-					message: '5',
-					time: '2022-09-10 16:27:17'
-				},
-				{
-					id: '1568519875494678530',
-					type: 4,
-					message: '同意',
-					time: '2022-09-10 16:40:55'
-				}
-			],
-			detailList: { id: '1123123213124', name: '张三', isRemember: 1, startTime: '2022-09-22 00:00:00', result: 1 }
+			queryInfo: {
+				pageNum: 1,
+				pageSize: 14
+			},
+			historyList: [],
+			charList: [],
+			detailList: {}
 		};
 	},
 	mounted() {
@@ -272,13 +160,52 @@ export default {
 					this.topNum = data.bottom
 				}).exec();
 		},
+		leaveResults(code) {
+			if(code === 1) {
+				return `同意`
+			}else if(code === 2) {
+				return `拒绝`
+			}else {
+				return `待处理`
+			}
+		},
 		showDetail(id) {
 			this.showDetailVisible = 2;
-			this.historyList.filter(item => {
-				if ((item.id = id)) {
-					this.detailList = item;
-				}
-			});
+			QueryLeaveDetail({id: id}).then(res => {
+				this.detailList = res
+				this.charList = res.process
+				console.log(this.charList)
+				//this.queryStreetList(res.target)
+			})
+		},
+		getMsgList() {
+			GetLeaveMessagesNumber().then(res => {
+				this.topList.splice(0, 1, {title: '待回复', num: res.unReadNum})
+				this.topList.splice(1, 1, {title: '历史记录', num: res.allNum})
+			})
+		},
+		getHistoryList() {
+			QueryHistoryList(this.queryInfo).then(res => {
+				console.log(res);
+				this.historyList = res.data
+			})
+		},
+		queryStreetList(code) {
+			QueryStreetList({code: code}).then(res => {
+				console.log(code)
+			})
+		},
+		dealReturnLeave() {
+			  const data = {
+			    id: this.detailList.id,
+			    message: this.inputValue
+			  }
+			  DealReturnLeave(data).then(() => {
+					this.scroolBottom()
+			    this.inputValue = ''
+					this.showDetail(this.detailList.id)
+					this.showDetailVisible = 3
+			  })
 		}
 	},
 	computed: {

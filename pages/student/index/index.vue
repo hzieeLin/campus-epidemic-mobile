@@ -40,7 +40,6 @@
 					<u-icon name="chat-fill" color="#ff0000" class="phone-icon" size="70"></u-icon>
 					<view class="func-title">消息通知</view>
 					<view class="func-remark">请假审批入口</view>
-					<view class="red-circle"><u-badge :type="type" max="99" value="1"></u-badge></view>
 				</view>
 			</view>
 		</view>

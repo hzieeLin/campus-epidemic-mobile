@@ -2,7 +2,7 @@
 	<view class="uni-tabbar">
 		<u-tabbar :fixed="true">
 			<u-tabbar-item text="功能页" icon="home" @click="click"></u-tabbar-item>
-			<u-tabbar-item text="扫一扫" icon="scan" @click="click" v-show="tokenType!=='防疫人员'"></u-tabbar-item>
+			<u-tabbar-item text="扫一扫" icon="scan" @click="click" v-show="tokenType!=='隔离人员'"></u-tabbar-item>
 			<u-tabbar-item text="个人中心" icon="account-fill" @click="click"></u-tabbar-item>
 		</u-tabbar>
 	</view>
@@ -26,7 +26,7 @@ export default {
 					this.tabbar = [...this.stuPath]
 					break
 			case '防疫人员':
-					this.tabbar = [...this.isolationPath]
+					this.tabbar = [...this.epidemicPath]
 					break
 			case '隔离人员':
 					this.tabbar = [...this.isolationPath]
@@ -44,13 +44,13 @@ export default {
 				case 1:
 					uni.scanCode({
 							success: res => {
-									let demo = JSON.stringify(res.result)
+									let rst = JSON.stringify(res.result)
 									switch(this.tokenType) {
 										case '学生':
 												break
 										case '防疫人员':
 												uni.navigateTo({
-													url: `/pages/epidemicPersonnel/scan/scan?id=${demo.split(',')[0]}&time=${demo.split(',')[1]}`
+													url: `/pages/epidemicPersonnel/scan/scan?id=${rst.split(',')[0]}&time=${rst.split(',')[1]}`
 												})
 												break
 										case '隔离人员':

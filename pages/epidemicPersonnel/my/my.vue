@@ -28,11 +28,11 @@
 			<view class="item">
 				<view class="left">
 					<uni-icons type="gear-filled" size="30"></uni-icons>
-					<view>退出登录</view>
+					<view @click="loginOut">退出登录</view>
 				</view>
 				<uni-icons type="forward" size="30"></uni-icons>
 			</view>
-		</view> 
+		</view>
 		<u-modal :show="showEditPwd" title="修改密码" :showCancelButton="true" @cancel="showEditPwd = false" @confirm="handleEditPwd">
 			<view>
 				<u-row>
@@ -53,9 +53,9 @@
 <script>
 import UQRCode from 'uqrcodejs';
 import TabBar from '../../../components/tabbar/tabbar.vue';
-import {EditPwd } from '../../../api/system.js'
+import { EditPwd } from '../../../api/system.js';
 import { dateFormat } from '../../../utils/date.js';
-import { mapState } from 'vuex';
+import { mapState, mapMutations } from 'vuex';
 export default {
 	components: {
 		TabBar
@@ -82,6 +82,7 @@ export default {
 		}, 1000);
 	},
 	methods: {
+		...mapMutations('m_tarbar', ['updateTokenType']),
 		changeShowScan() {
 			this.getStuInfo();
 			this.showTwoScan = !this.showTwoScan;
@@ -90,16 +91,23 @@ export default {
 			this.currentTime = dateFormat(null, null, 3);
 		},
 		handleEditPwd() {
-			EditPwd(this.pwdInfo).then((res) => {
-				this.showEditPwd = false
+			EditPwd(this.pwdInfo).then(res => {
+				this.showEditPwd = false;
 				uni.showToast({
-						title: `密码修改成功！`,
-						icon: 'success',
-						duration: 2000
+					title: `密码修改成功！`,
+					icon: 'success',
+					duration: 2000
 				});
-			})
+			});
+		},
+		loginOut() {
+			uni.setStorageSync('token', null);
+			uni.navigateTo({
+				url: `/pages/account/login/login`
+			});
 		}
 	},
+
 	computed: {
 		...mapState('m_user', ['userinfo'])
 	}

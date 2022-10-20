@@ -48,6 +48,7 @@ export default {
 .page-container {
 	width: 100vw;
 	height: 100vh;
+	padding-top: 2vh;
 	display: flex;
 	flex-direction: column;
 	.top {

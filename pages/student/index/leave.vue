@@ -16,23 +16,23 @@
 		<view class="form" abelPosition="left">
 			<u--form v-model="formList" >
 				<u-form-item label="请假类型" prop="formList.type"  labelWidth="200" @click="showType = true; uni.hideKeyboard()">
-					<u-text :text="typeValue"></u-text>
+					<u-text :text="typeValue" size="26"></u-text>
 					<u-icon  slot="right" name="arrow-right"></u-icon>
 				</u-form-item>
 				<u-form-item label="预计出校时间" prop="formList.estimateStartTime" labelWidth="200" @click="showDate1 = true; uni.hideKeyboard()">
-					<u-text :text="formList.estimateStartTime"></u-text>
+					<u-text :text="formList.estimateStartTime" size="26"></u-text>
 					<u-icon  slot="right" name="arrow-right"></u-icon>
 				</u-form-item>
 				<u-form-item label="预计返校时间" prop="formList.estimateEndTime"  labelWidth="200" @click="showDate2 = true; uni.hideKeyboard()">
-					<u-text :text="formList.estimateEndTime"></u-text>
+					<u-text :text="formList.estimateEndTime" size="26"></u-text>
 					<u-icon  slot="right" name="arrow-right"></u-icon>
 				</u-form-item>
 				<u-form-item label="请假去向" prop="formList.type"  labelWidth="200"　@click="showArea = true; uni.hideKeyboard()">
-					<u-text :text="targetValue"></u-text>
+					<u-text :text="targetValue" size="26"></u-text>
 					<u-icon  slot="right" name="arrow-right"></u-icon>
 				</u-form-item>
 				<u-form-item label="请假原因" prop="formList.message"  labelWidth="200">
-					<u-input v-model="formList.message" border="none"></u-input>
+					<u-input v-model="formList.message" border="none" size="26"></u-input>
 				</u-form-item>
 			</u--form>
 			<u-action-sheet
@@ -99,7 +99,7 @@
 				this.typeValue = e.value === 0 ? '事假' : '病假'
 			},
 			confirm(e) {
-				this.targetValue = `${e.value[0].name}${e.value[1].name}${e.value[2].name}${e.value[3].name}`
+				this.targetValue = `${e.values[0][e.indexs[0] === undefined ? '0': e.indexs[0]].name}${e.values[1][e.indexs[1] === undefined ? '0': e.indexs[1]].name}${e.values[2][e.indexs[2] === undefined ? '0': e.indexs[2]].name}${e.values[3][e.indexs[3] === undefined ? '0': e.indexs[3]].name}`
 				this.formList.target = e.value[3].code
 				this.showArea = false
 			},
@@ -136,6 +136,7 @@
 			},
 			getProviceList() {
 				GetProvinceList().then((res) => {
+					this.getCityList(res[0].code)
 					this.$refs.uPicker.setColumnValues(0, res)
 					this.$refs.uPicker.setColumnValues(1, [])
 					this.$refs.uPicker.setColumnValues(2, [])
@@ -146,6 +147,7 @@
 				const data = {provinceCode: code}
 				GetCityListByCode(data).then((res) => {
 					this.$refs.uPicker.setColumnValues(1, res)
+					this.getCountyList(res[0].code)
 					this.$refs.uPicker.setColumnValues(2, [])
 					this.$refs.uPicker.setColumnValues(3, [])
 				})
@@ -155,6 +157,7 @@
 				const data = {cityCode: code}
 				GetCountyListByCode(data).then((res) => {
 					this.$refs.uPicker.setColumnValues(2, res)
+					this.getStreetList(res[0].code)
 					this.$refs.uPicker.setColumnValues(3, [])
 				})
 			},

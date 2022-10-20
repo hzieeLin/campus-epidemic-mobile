@@ -39,22 +39,6 @@
 						</u-list-item>
 					</u-list>
 		</view>
-<!-- 		<u-modal show="false" :content='content' title="物质反馈">
-			<view>
-				<view>姓名： 王德法</view>
-				<view>请求： 想看kunkun演唱会</view>
-			</view>
-			<template#confirmButton >
-				<view style="display: flex; justify-content: space-around; height: 40px;">				
-				<view style="color: #55ff00;">同意</view>
-				<view style="color: #ffaa00;">无法处理</view>
-				<view style="color: #ff0000;">拒绝</view>
-				</view>
-			</template> 
-
-			</slot>
-		</u-modal> -->
-				
 	</view>
 </template>
 

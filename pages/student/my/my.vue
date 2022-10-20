@@ -29,7 +29,7 @@
 			<view class="item">
 				<view class="left">
 					<uni-icons type="gear-filled" size="30"></uni-icons>
-					<view>退出登录</view>
+					<view @click="loginOut">退出登录</view>
 				</view>
 				<uni-icons type="forward" size="30"></uni-icons>
 			</view>
@@ -62,7 +62,7 @@ import TabBar from '../../../components/tabbar/tabbar.vue';
 import {EditPwd } from '../../../api/system.js'
 import { getScanInfo } from '../../../api/student/query.js';
 import { dateFormat } from '../../../utils/date.js';
-import { mapState } from 'vuex';
+import { mapState, mapMutations } from 'vuex';
 export default {
 	components: {
 		TabBar
@@ -89,6 +89,7 @@ export default {
 		}, 1000);
 	},
 	methods: {
+		...mapMutations('m_tarbar', ['updateTokenType']),
 		getStuInfo() {
 			getScanInfo().then(res => {
 				console.log(res);
@@ -111,6 +112,12 @@ export default {
 						icon: 'success',
 						duration: 2000
 				});
+			})
+		},
+		loginOut() {
+			uni.setStorageSync('token', null);
+			uni.navigateTo({
+				url: `/pages/account/login/login`
 			})
 		}
 	},

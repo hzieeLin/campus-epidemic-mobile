@@ -1,12 +1,14 @@
 export default {
 	namespaced: true,
 	state: () => ({
-			tokenType: JSON.parse(uni.getStorageSync('tokenType') || '[]')
+			tokenType: JSON.parse(uni.getStorageSync('tokenType') || '')
 		}),
 		mutations: {
 			updateTokenType(state, tokenType) {
 				state.tokenType = ''
 				state.tokenType = tokenType
+				console.log('state.tokenType', state.tokenType)
+				console.log('tokenType', tokenType)
 				this.commit('m_tabbar/saveTokenTypeToStorage')
 			},
 			saveTokenTypeToStorage(state) {
