@@ -1,14 +1,17 @@
 const reqest = (config) => {
 	// https://49t17g0193.zicp.fun/campus-epidemic-system
-	config.url = 'https://49t17g0193.zicp.fun/campus-epidemic-system'+ config.url
+	// config.url = 'https://49t17g0193.zicp.fun/campus-epidemic-system'+ config.url
+	config.url = 'http://127.0.0.1:8080/campus-epidemic-system'+ config.url
+	// config.url = '/api'+ config.url
 	if(!config.data) {
 		config.data = {}
 	}
 return new Promise((resolve,reject) => {
+				console.log(config)
         uni.request({
             ...config,
             success: (res) => {
-                // console.log(res);
+                console.log(res);
 								const { code} = res.data
 								switch(code) {
 									case 200: 

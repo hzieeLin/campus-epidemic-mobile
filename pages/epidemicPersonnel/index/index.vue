@@ -4,13 +4,13 @@
 		<view class="top-nav"><view>校园疫情防控App</view></view>
 		<swiper class="swiper" circular indicator-dots autoplay interval="4000" duration="2000">
 			<swiper-item>
-				<view class="swiper-item"><image src="../../../static/top.png" style="width: 100%;" mode=""></image></view>
+				<view class="swiper-item"><image src="../../../static/b1.jpg" style="width: 100%;" mode=""></image></view>
 			</swiper-item>
 			<swiper-item>
-				<view class="swiper-item"><image src="../../../static/top.png" style="width: 100%;" mode=""></image></view>
+				<view class="swiper-item"><image src="../../../static/b2.png" style="width: 100%;" mode=""></image></view>
 			</swiper-item>
 			<swiper-item>
-				<view class="swiper-item"><image src="../../../static/top.png" style="width: 100%;" mode=""></image></view>
+				<view class="swiper-item"><image src="../../../static/b3.png" style="width: 100%;" mode=""></image></view>
 			</swiper-item>
 		</swiper>
 		<view class="func-box">
@@ -36,7 +36,7 @@
 				</view>
 			</view>
 			<view class="func-item">
-<!-- 				<view class="inner-box" @click="openPage(3)">
+<!-- 				<view class="inner-box" @click="getStuInfo">
 					<u-icon name="chat-fill" color="#ff0000" class="phone-icon" size="70"></u-icon>
 					<view class="func-title">消息通知</view>
 					<view class="func-remark">请假审批，反馈审批</view>

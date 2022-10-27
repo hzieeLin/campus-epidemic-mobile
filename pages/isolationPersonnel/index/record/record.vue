@@ -27,14 +27,11 @@
 
 <script>
 import { mapState } from 'vuex';
+import { GetHistoryList} from '@/api/isolation.js'
 export default {
 	data() {
 		return {
 			topNum: 0,
-			topList:[
-				{title: '待回复', num: 0},
-				{title: '历史记录', num: 0}
-			],
 			inputValue: '',
 			inputDisabled: true,
 			showDetailVisible: 1,
@@ -51,131 +48,21 @@ export default {
 				{ id: '1123123213144', name: '张三', isRemember: 1, startTime: '2022-09-22 00:00:00', result: 1 },
 				{ id: '1123123213125', name: '张三', isRemember: 1, startTime: '2022-09-22 00:00:00', result: 0 }
 			],
-			charList: [
-				{
-					id: '1567525304736440321',
-					type: 1,
-					message: '测试同城同天但是信誉不好',
-					time: '2022-09-07 22:48:51'
-				},
-				{
-					id: '1567541947143307265',
-					type: 2,
-					message: '你在想什么？？？',
-					time: '2022-09-07 23:54:58'
-				},
-				{
-					id: '1567552449290559490',
-					type: 3,
-					message: '你在狗叫什么？？？',
-					time: '2022-09-08 00:36:42'
-				},
-				{
-					id: '1567553439133716482',
-					type: 2,
-					message: '你再叫叫试试？？',
-					time: '2022-09-08 00:40:38'
-				},
-				{
-					id: '1567553516225024001',
-					type: 3,
-					message: '你废了！不让学生请假！！',
-					time: '2022-09-08 00:40:57'
-				},
-				{
-					id: '1567553619274878977',
-					type: 2,
-					message: '你敢骂老师！你前途没有了！！',
-					time: '2022-09-08 00:41:21'
-				},
-				{
-					id: '1567553708282204162',
-					type: 3,
-					message: '你给我提前途，我们不能出校就有前途了？？',
-					time: '2022-09-08 00:41:42'
-				},
-				{
-					id: '1568443311276978177',
-					type: 2,
-					message: '真的想笑',
-					time: '2022-09-10 11:36:40'
-				},
-				{
-					id: '1568445099719790593',
-					type: 2,
-					message: '怎么不说话了？？',
-					time: '2022-09-10 11:43:47'
-				},
-				{
-					id: '1568445144489791489',
-					type: 2,
-					message: '你聋吗？',
-					time: '2022-09-10 11:43:57'
-				},
-				{
-					id: '1568445320155631618',
-					type: 2,
-					message: '还不讲话是不是想死阿\n',
-					time: '2022-09-10 11:44:39'
-				},
-				{
-					id: '1568445640294273025',
-					type: 2,
-					message: '真的',
-					time: '2022-09-10 11:45:56'
-				},
-				{
-					id: '1568446064925609985',
-					type: 2,
-					message: '111',
-					time: '2022-09-10 11:47:37'
-				},
-				{
-					id: '1568451718667046913',
-					type: 2,
-					message: '1',
-					time: '2022-09-10 12:10:05'
-				},
-				{
-					id: '1568516197631135745',
-					type: 2,
-					message: '2',
-					time: '2022-09-10 16:26:18'
-				},
-				{
-					id: '1568516409795809281',
-					type: 2,
-					message: '3',
-					time: '2022-09-10 16:27:08'
-				},
-				{
-					id: '1568516433787228162',
-					type: 2,
-					message: '4',
-					time: '2022-09-10 16:27:14'
-				},
-				{
-					id: '1568516447892672514',
-					type: 2,
-					message: '5',
-					time: '2022-09-10 16:27:17'
-				},
-				{
-					id: '1568519875494678530',
-					type: 4,
-					message: '同意',
-					time: '2022-09-10 16:40:55'
-				}
-			],
 			detailList: { id: '1123123213124', name: '张三', isRemember: 1, startTime: '2022-09-22 00:00:00', result: 1 }
 		};
 	},
+	created() {
+		this.getHistoryList();
+	},
 	methods: {
 		getHistoryList() {
-			// GetHistoryList().then(res => {
-			// 	this.historyList = res.data
-			// 	this.total = res.total
-			// })
+			GetHistoryList({
+				pageNum: 1,
+				pageSize: 14
+			}).then(res => {
+				this.historyList = res.data
+				this.total = res.total
+			})
 		}
 	},
 	computed: {

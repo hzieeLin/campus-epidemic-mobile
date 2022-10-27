@@ -2,7 +2,7 @@ import request from '../../utils/request.js'
 // 扫码获取学生的信息以及操作权限
 export function GetStuInfo(data) {
 	return request({
-		url: '/app/student/scanCodeGetStudentInformation',
+		url: `/app/student/scanCodeGetStudentInformation`,
 		method: 'get',
 		header: {'Authorization': uni.getStorageSync('token')},
 		data
@@ -14,7 +14,7 @@ export function IsolationOperation(data) {
 		url: '/app/isolationPerson/isolationOperation',
 		method: 'get',
 		header: {'Authorization': uni.getStorageSync('token')},
-		data: JSON.stringify(data)
+		data
 	})
 }
 // 解除隔离

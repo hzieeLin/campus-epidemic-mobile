@@ -10,7 +10,7 @@
 		{
 			"path": "pages/account/login/login",
 			"style": {
-				"navigationBarTitleText": ""
+				"navigationStyle": "custom" 
 			}
 		},
 		{
@@ -93,7 +93,7 @@
 				    "path" : "pages/student/index/vacation",
 				    "style" :                                                                                    
 				    {
-							"navigationBarTitleText": "消息相关"
+							"navigationStyle": "custom" 
 				    }
 				    
 				},
@@ -169,7 +169,7 @@
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
-		"navigationBarTitleText": "信工时刻",
+		"navigationBarTitleText": "",
 		"navigationBarBackgroundColor": "#ffffff",
 		"backgroundColor": "#e0e0e0",
 		"app-plus": {

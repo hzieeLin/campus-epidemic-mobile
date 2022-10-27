@@ -33,7 +33,7 @@ export default {
 	},
 	methods: {
 		groupChange(e) {
-			nucleicAcid = e;
+			this.nucleicAcid = e;
 		},
 		deletePic(event) {
 			this.fileList = {};
@@ -44,20 +44,28 @@ export default {
 			this.fileList[0] = lists[0];
 		},
 		uploadFilePromise() {
+			console.log(this.fileList[0].url);
 			uni.compressImage({
 				src: this.fileList[0].url,
 				quality: 80,
 				success: res => {
+					console.log(res);
 					uni.uploadFile({
-						url: 'https://49t17g0193.zicp.fun/campus-epidemic-system/pc/system/upload', //仅为示例，非真实的接口地址
+						url: 'https://49t17g0193.zicp.fun/campus-epidemic-system/app/leave/backSchool', //仅为示例，非真实的接口地址
 						filePath: res.tempFilePath,
-						name: 'file',
+						name: 'healthCodePicture',
+						formData: {
+							'nucleicAcid': this.nucleicAcid
+						},
 						header: {
 							Authorization: uni.getStorageSync('token')
 						},
 						success: uploadFileRes => {
 							console.log(uploadFileRes);
 							this.success = 1;
+						},
+						error: err => {
+							console.log(err);
 						}
 					})
 				}

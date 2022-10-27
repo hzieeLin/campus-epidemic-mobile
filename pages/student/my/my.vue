@@ -70,8 +70,8 @@ export default {
 	data() {
 		return {
 			list: {
-				code: '199200118',
-				name: '林世宏'
+				code: '',
+				name: ''
 			},
 			showTwoScan: true,
 			showEditPwd: false,

@@ -26,16 +26,11 @@ import { setToken } from '../../../utils/auth.js';
 export default {
 	onLoad() {
 		const token = uni.getStorageSync('token');
-		console.log(token);
-		if (token !== '') {
-			const tokenType = uni.getStorageSync('tokenType');
-			this.RolePaths(tokenType);
-		} else {
-			console.log(2);
-		}
+		this.tokens = token
 	},
 	data() {
 		return {
+			tokens: '',
 			loginByCode: {
 				account: '1902010301',
 				// account: '0422',
@@ -89,8 +84,8 @@ export default {
 	}
 	.form-box {
 		position: absolute;
-		width: 90%;
-		height: 45%;
+		width: 80%;
+		height: 40%;
 		border-radius: 1rem;
 		background-color: #fff;
 		left: 50%;
@@ -115,13 +110,13 @@ export default {
 		.btn {
 			position: absolute;
 			left: 50%;
-			bottom: -10%;
+			bottom: -8%;
 			transform: translate(-50%, 0%);
 			width: 90%;
 			border-radius: 1.2rem;
 			text-align: center;
 			font-size: 1.1rem;
-			height: 3.2rem;
+			height: 3.4rem;
 			line-height: 3.2rem;
 			color: #fff;
 			background-color: #5680fa;

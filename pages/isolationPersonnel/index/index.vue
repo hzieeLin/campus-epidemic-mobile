@@ -1,16 +1,15 @@
 <template>
 	<view class="page-container">
-		<view style="height: 5vh;"></view>
-		<view class="top-nav"><view>校园疫情防控App</view></view>
+		<view style="height: 4vh;"></view>
 		<swiper class="swiper" circular indicator-dots autoplay interval="4000" duration="2000">
 			<swiper-item>
-				<view class="swiper-item"><image src="../../../static/banner2.png" style="width: 100%; boredr-radius=10px" mode=""></image></view>
+				<view class="swiper-item"><image src="../../../static/b1.jpg" style="width: 100%;border-radius: 10px;" mode=""></image></view>
 			</swiper-item>
 			<swiper-item>
-				<view class="swiper-item"><image src="../../../static/banner2.png" style="width: 100%;" mode=""></image></view>
+				<view class="swiper-item"><image src="../../../static/b2.png" style="width: 100%;border-radius: 10px;" mode=""></image></view>
 			</swiper-item>
 			<swiper-item>
-				<view class="swiper-item"><image src="../../../static/banner2.png" style="width: 100%;" mode=""></image></view>
+				<view class="swiper-item"><image src="../../../static/b3.png" style="width: 100%;border-radius: 10px;" mode=""></image></view>
 			</swiper-item>
 		</swiper>
 		<view class="func-box">
@@ -100,10 +99,11 @@ export default {
 	}
 	.swiper {
 		width: 100%;
-		height: 26vh;
+		height: 24vh;
 		.swiper-item {
-			width: 100%;
+			width: 95%;
 			height: 100%;
+			margin: 0 auto;
 		}
 	}
 	.func-box {

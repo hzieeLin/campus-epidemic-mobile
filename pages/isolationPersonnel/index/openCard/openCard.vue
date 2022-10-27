@@ -16,8 +16,8 @@
 					  placement="column"
 					  @change="groupChange"
 					>
-					<u-radio label="是" name="0" size="30" :customStyle="{marginBottom: '8px'}"></u-radio>
-					<u-radio label="否" name="1" size="30"></u-radio>
+					<u-radio label="是" name="0" size="30" labelSize="24" :customStyle="{marginBottom: '8px'}"></u-radio>
+					<u-radio label="否" name="1" size="30" labelSize="24"></u-radio>
 					</u-radio-group>
 				</view>
 			</view>
@@ -29,8 +29,8 @@
 					  placement="column"
 					  @change="groupChange1"
 					>
-					<u-radio label="是" name="0" size="30" :customStyle="{marginBottom: '8px'}"></u-radio>
-					<u-radio label="否" name="1" size="30"></u-radio>
+					<u-radio label="是" name="0" size="30" labelSize="24" :customStyle="{marginBottom: '8px'}"></u-radio>
+					<u-radio label="否" name="1" size="30" labelSize="24"></u-radio>
 					</u-radio-group>
 				</view>
 			</view>
@@ -40,9 +40,9 @@
 					<u-radio-group
 					  :v-model="formData.color"
 						@change="groupChange2">
-						<u-radio label="绿码" name="0" size="30" :customStyle="{marginRight: '8px'}"></u-radio>
-						<u-radio label="黄码" name="1" size="30" :customStyle="{marginRight: '8px'}"></u-radio>
-						<u-radio label="红码" name="2" size="30"></u-radio>
+						<u-radio label="绿码" name="0" size="30" labelSize="24" :customStyle="{marginRight: '8px'}"></u-radio>
+						<u-radio label="黄码" name="1" size="30" labelSize="24" :customStyle="{marginRight: '8px'}"></u-radio>
+						<u-radio label="红码" name="2" size="30" labelSize="24"></u-radio>
 						</u-radio-group>
 				</view>
 			</view>
@@ -54,8 +54,8 @@
 					  placement="column"
 					  @change="groupChange3"
 					>
-					<u-radio label="是" name="0" size="30" :customStyle="{marginBottom: '8px'}"></u-radio>
-					<u-radio label="否" name="1" size="30"></u-radio>
+					<u-radio label="是" name="0" size="30" labelSize="24" :customStyle="{marginBottom: '8px'}"></u-radio>
+					<u-radio label="否" name="1" size="30" labelSize="24"></u-radio>
 					</u-radio-group>
 				</view>
 			</view>

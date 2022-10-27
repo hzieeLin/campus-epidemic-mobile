@@ -78,7 +78,7 @@
 		data() {
 			return {
 				formData: {
-					preciseArea: '',
+					preciseArea: '浙江省杭州市西湖区德利希大厦学院路',
 					temperatureAbnormal: null,
 					abnormalSymptoms: null,
 					healthCode: null,

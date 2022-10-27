@@ -2,7 +2,7 @@
 	<view class="page-container">
 		<view class="top">
 			<u-icon name="arrow-left" size="40" color="#000" @click="backIndex"></u-icon>
-			<view style="margin-left: 20rpx;font-weight: 600;">返回主页</view>
+			<view style="margin-left: 20rpx;font-weight: 600;" @click="backIndex">返回主页</view>
 		</view>
 		<view class="content">
 			<image src="../../../static/subSuccess.png"></image>
@@ -48,7 +48,7 @@ export default {
 .page-container {
 	width: 100vw;
 	height: 100vh;
-	padding-top: 2vh;
+	padding-top: 3vh;
 	display: flex;
 	flex-direction: column;
 	.top {
@@ -65,8 +65,8 @@ export default {
 			top: 30%;
 			left: 50%;
 			transform: translate(-50%, -50%);
-			width: 300rpx;
-			height: 300rpx;
+			width: 500rpx;
+			height: 400rpx;
 		}
 		h4 {
 			position: absolute;

@@ -6,8 +6,8 @@
 				<h4>反馈类型:</h4>
 				<view style="margin: 2vh 0;">
 					<u-radio-group @change="groupChange">
-						<u-radio label="物质反馈" name="1" size="40" :customStyle="{ marginRight: '30px' }"></u-radio>
-						<u-radio label="意见反馈" name="2" size="40" :customStyle="{ marginRight: '8px' }"></u-radio>
+						<u-radio label="物质反馈" name="1" size="30" labelSize="24" :customStyle="{ marginLeft: '20px', marginRight: '30px'}"></u-radio>
+						<u-radio label="意见反馈" name="2" size="30" labelSize="24" :customStyle="{ marginRight: '8px' }"></u-radio>
 					</u-radio-group>
 				</view>
 				<h4>反馈内容:</h4>

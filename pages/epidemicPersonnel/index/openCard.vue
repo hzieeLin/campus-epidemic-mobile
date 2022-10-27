@@ -20,9 +20,9 @@
 				<view class="form-item-content"><u-upload :fileList="fileList" @afterRead="afterRead" name="1" multiple :maxCount="1"></u-upload></view>
 				<div style="padding-right: 5vw;">健康码颜色：</div>
 				 <u-radio-group @change="groupChange">
-				    <u-radio :customStyle="{marginRight: '8px'}" label="绿码" name="0" size="30"></u-radio>
-				    <u-radio :customStyle="{marginRight: '8px'}" label="黄码" name="1" size="30"></u-radio>
-				    <u-radio :customStyle="{marginRight: '8px'}" label="红码" name="2" size="30"></u-radio>
+				    <u-radio :customStyle="{marginRight: '8px'}" label="绿码" name="0" size="30" labelSize="24"></u-radio>
+				    <u-radio :customStyle="{marginRight: '8px'}" label="黄码" name="1" size="30" labelSize="24"></u-radio>
+				    <u-radio :customStyle="{marginRight: '8px'}" label="红码" name="2" size="30" labelSize="24"></u-radio>
 				</u-radio-group>
 			</view>
 			<view class="submit-btn">

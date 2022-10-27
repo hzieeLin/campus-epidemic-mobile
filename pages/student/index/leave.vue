@@ -46,14 +46,15 @@
 			<u-picker :show="showArea" ref="uPicker" :columns="columns" keyName="name" @confirm="confirm" @cancel="showArea = false" @change="changeHandler"></u-picker>
 			<u-datetime-picker
 			                :show="showDate1"
+											:minDate="new Date()"
 											@confirm="getStartTime"
 											@cancel="showDate1 = false"
 											:formatter="formatter"
-			                mode="time"
+			                mode="datetime"
 			        ></u-datetime-picker>	
 			<u-datetime-picker
 			                :show="showDate2"
-											:minDate="1640966400000"
+											:minDate="new Date()"
 											@confirm="getEndTime"
 											@cancel="showDate2 = false"
 			                mode="datetime"
@@ -113,7 +114,7 @@
 			        return value
 			    },
 			getStartTime(e) {
-				this.formList.estimateStartTime = dateFormat(null, e.value, 1)
+				this.formList.estimateStartTime = dateFormat(e.value,null, 0)
 				this.showDate1 = false
 			},
 			getEndTime(e) {
@@ -169,7 +170,9 @@
 			},
 			submitLeave() {
 				AddLeave(this.formList).then(res => {
-					console.log('提交成功');
+					uni.navigateTo({
+						url: '/pages/common/subSuccess/subSuccess'
+					})
 				})
 			}
 		}

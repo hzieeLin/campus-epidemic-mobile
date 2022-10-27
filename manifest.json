@@ -84,12 +84,12 @@
             "https" : false,
             "disableHostCheck" : true,
             "proxy" : {
-                "/jixian" : {
-                    "target" : "https://49t17g0193.zicp.fun/campus-epidemic-system",
+                "/api" : {
+                    "target" : "http://127.0.0.1:8080/campus-epidemic-system",
                     "changeOrigin" : true,
                     "secure" : false,
                     "pathRewrite" : {
-                        "^/jixian" : "/"
+                        "^/api" : "/"
                     }
                 }
             }

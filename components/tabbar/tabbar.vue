@@ -44,11 +44,12 @@ export default {
 				case 1:
 					uni.scanCode({
 							success: res => {
-									let rst = JSON.stringify(res.result)
+									let rst = res.result
 									switch(this.tokenType) {
 										case '学生':
 												break
 										case '防疫人员':
+												console.log('ret',JSON.stringify(res.result))
 												uni.navigateTo({
 													url: `/pages/epidemicPersonnel/scan/scan?id=${rst.split(',')[0]}&time=${rst.split(',')[1]}`
 												})

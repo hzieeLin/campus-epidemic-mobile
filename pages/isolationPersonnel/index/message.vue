@@ -4,23 +4,26 @@
 			<view class="list-box">
 				<view class="list-item">
 					<view @click="showDetailVisible = 1">历史记录</view>
-					<view>2</view>
+					<view>{{topNum}}</view>
 				</view>
 			</view>
 		</view>
 		<view class="history-list" v-if="showDetailVisible === 1">
 			<view class="list-item" v-for="item in historyList" :key="item.id">
 				<view class="item-top">
-					<view style="font-weight: 500;">{{ item.name }}的反馈审批单</view>
-					<!-- <view>{{getTime}}</view> -->
+					<view style="font-weight: 500;">{{ userinfo.name }}的反馈审批单</view>
 				</view>
 				<view class="item-centent">
-					<view>反馈类型：{{ item.isRemember === 1 ? '是' : '否' }}</view>
-					<view>反馈内容：{{ item.startTime }}</view>
+					<view>反馈类型：{{ item.type === 1 ? '物质请求' : '意见申诉' }}</view>
+					<view>反馈内容：{{ item.message }}</view>
 				</view>
 				<view class="item-bottom">
-					<view>由{{ item.name }}提交</view>
-					<view :style="item.result === 1 ? { color: '#00aa00' } : { color: '#ff0000' }">{{ item.result === 1 ? '审核通过' : '审核未通过' }}</view>
+					<view>由{{ userinfo.name }}提交</view>
+					<view :style="item.result === 1 ? { color: '#00aa00' } : { color: '#ff0000' }">
+						<span style="color: #007aff;" v-if="item.result === 0">正在审批</span>
+						<span style="color: #00aa00;" v-else-if="item.result === 1">审批通过</span>
+						<span style="color: #ff0000;" v-else-if="item.result === 2">审批拒绝</span>
+					</view>
 				</view>
 			</view>
 		</view>
@@ -32,6 +35,7 @@
 import { mapState } from 'vuex';
 import { dateFormat } from '../../../utils/date.js';
 import askLogo from '../../../components/theLogo/askLogo.vue';
+import {QueryPageFeedbackAcceptanceByIsolation} from '@/api/isolation.js'
 export default {
 	components: {
 		askLogo
@@ -46,138 +50,26 @@ export default {
 			inputValue: '',
 			inputDisabled: true,
 			showDetailVisible: 1,
-			historyList: [
-				{ id: '1123123213124', name: '张三', isRemember: 1, startTime: '2022-09-22 00:00:00', result: 1 },
-				{ id: '1123123213122', name: '张三', isRemember: 1, startTime: '2022-09-22 00:00:00', result: 1 },
-				{ id: '1123123213123', name: '张三', isRemember: 1, startTime: '2022-09-22 00:00:00', result: 0 },
-				{ id: '1123123213144', name: '张三', isRemember: 1, startTime: '2022-09-22 00:00:00', result: 1 },
-				{ id: '1123123213125', name: '张三', isRemember: 1, startTime: '2022-09-22 00:00:00', result: 0 }
-			],
-			charList: [
-				{
-					id: '1567525304736440321',
-					type: 1,
-					message: '测试同城同天但是信誉不好',
-					time: '2022-09-07 22:48:51'
-				},
-				{
-					id: '1567541947143307265',
-					type: 2,
-					message: '你在想什么？？？',
-					time: '2022-09-07 23:54:58'
-				},
-				{
-					id: '1567552449290559490',
-					type: 3,
-					message: '你在狗叫什么？？？',
-					time: '2022-09-08 00:36:42'
-				},
-				{
-					id: '1567553439133716482',
-					type: 2,
-					message: '你再叫叫试试？？',
-					time: '2022-09-08 00:40:38'
-				},
-				{
-					id: '1567553516225024001',
-					type: 3,
-					message: '你废了！不让学生请假！！',
-					time: '2022-09-08 00:40:57'
-				},
-				{
-					id: '1567553619274878977',
-					type: 2,
-					message: '你敢骂老师！你前途没有了！！',
-					time: '2022-09-08 00:41:21'
-				},
-				{
-					id: '1567553708282204162',
-					type: 3,
-					message: '你给我提前途，我们不能出校就有前途了？？',
-					time: '2022-09-08 00:41:42'
-				},
-				{
-					id: '1568443311276978177',
-					type: 2,
-					message: '真的想笑',
-					time: '2022-09-10 11:36:40'
-				},
-				{
-					id: '1568445099719790593',
-					type: 2,
-					message: '怎么不说话了？？',
-					time: '2022-09-10 11:43:47'
-				},
-				{
-					id: '1568445144489791489',
-					type: 2,
-					message: '你聋吗？',
-					time: '2022-09-10 11:43:57'
-				},
-				{
-					id: '1568445320155631618',
-					type: 2,
-					message: '还不讲话是不是想死阿\n',
-					time: '2022-09-10 11:44:39'
-				},
-				{
-					id: '1568445640294273025',
-					type: 2,
-					message: '真的',
-					time: '2022-09-10 11:45:56'
-				},
-				{
-					id: '1568446064925609985',
-					type: 2,
-					message: '111',
-					time: '2022-09-10 11:47:37'
-				},
-				{
-					id: '1568451718667046913',
-					type: 2,
-					message: '1',
-					time: '2022-09-10 12:10:05'
-				},
-				{
-					id: '1568516197631135745',
-					type: 2,
-					message: '2',
-					time: '2022-09-10 16:26:18'
-				},
-				{
-					id: '1568516409795809281',
-					type: 2,
-					message: '3',
-					time: '2022-09-10 16:27:08'
-				},
-				{
-					id: '1568516433787228162',
-					type: 2,
-					message: '4',
-					time: '2022-09-10 16:27:14'
-				},
-				{
-					id: '1568516447892672514',
-					type: 2,
-					message: '5',
-					time: '2022-09-10 16:27:17'
-				},
-				{
-					id: '1568519875494678530',
-					type: 4,
-					message: '同意',
-					time: '2022-09-10 16:40:55'
-				}
-			],
+			historyList: [],
+			charList: [],
 			detailList: { id: '1123123213124', name: '张三', isRemember: 1, startTime: '2022-09-22 00:00:00', result: 1 }
 		};
 	},
+	created() {
+		this.getHistoryList();
+	},
 	methods: {
 		getHistoryList() {
-			// GetHistoryList().then(res => {
-			// 	this.historyList = res.data
-			// 	this.total = res.total
-			// })
+			QueryPageFeedbackAcceptanceByIsolation({
+				pageNum: 1,
+				pageSize: 10
+			}).then(res => {
+				console.log(res);
+				this.topNum = res.total
+				res.data.forEach(item => {
+					this.historyList.unshift(item)
+				})
+			})
 		}
 	},
 	computed: {

@@ -39,11 +39,26 @@ export function QueryLeaveDetail(data) {
 }
 
 export function QueryStreetList(data) {
-	console.log(data)
 	return request({
 		url: `/app/street/queryStreetList`,
 		method: 'get',
 		header: {'Authorization': uni.getStorageSync('token')},
 		data
+	})
+}
+
+export function QueryLeaveMessagesNumber() {
+	return request({
+		url: `/app/leave/queryLeaveMessagesNumber`,
+		method: 'get',
+		header: {'Authorization': uni.getStorageSync('token')}
+	})
+}
+
+export function QueryLeaveChat() {
+	return request({
+		url: `/app/leave/queryLeaveChat`,
+		method: 'get',
+		header: {'Authorization': uni.getStorageSync('token')}
 	})
 }

@@ -62,6 +62,7 @@ import TabBar from '../../../components/tabbar/tabbar.vue';
 import {EditPwd } from '../../../api/system.js'
 import { dateFormat } from '../../../utils/date.js';
 import { mapState, mapMutations } from 'vuex';
+import { getScanInfo } from '@/api/student/query.js';
 export default {
 	components: {
 		TabBar
@@ -89,7 +90,15 @@ export default {
 	},
 	methods: {
 		...mapMutations('m_tarbar', ['updateTokenType']),
+		getStuInfo() {
+			getScanInfo().then(res => {
+				console.log(res);
+				this.scanInfo = `${res.id},${res.time}`
+				console.log(this.scanInfo);
+			});
+		},
 		changeShowScan() {
+			this.getStuInfo();
 			this.showTwoScan = !this.showTwoScan;
 		},
 		getCurrentTime() {

@@ -29,10 +29,10 @@
 	import {GetStuInfo, IsolationOperation, LiftIsolationOperation} from '../../../api/epidemic/query.js'
 	export default {
 		onLoad(option) {
-			console.log(option.id);
+			console.log(option);
 			this.userId = option.id
 			this.userTime = option.time
-			this.getStuInfo()
+			this.getStuInfo(option.id,option.time)
 		},
 		data() {
 			return {
@@ -49,22 +49,24 @@
 			}
 		},
 		methods: {
-			getStuInfo() {
+			getStuInfo(id, time) {
 				const data = {
-					id: this.userId,
-					time: this.userTime
+					id: id,
+					time: time
 				}
 				console.log(data);
 				GetStuInfo(data).then((res) => {
 					console.log(res);
-					this.stuInfo.code = res.data.code
-					this.stuInfo.name = res.data.name
-					this.stuInfo.majorName = res.data.majorName
-					this.stuInfo.className = res.data.className
-					this.stuInfo.phone = res.data.phone
+					this.stuInfo.code = res.code
+					this.stuInfo.name = res.name
+					this.stuInfo.majorName = res.majorName
+					this.stuInfo.className = res.className
+					this.stuInfo.phone = res.phone
 				})
 			},
 			handleIsolation() {
+				console.log(1);
+				console.log(this.userId);
 				const data = {
 					id: this.userId
 				}
@@ -128,7 +130,7 @@
 			justify-content: flex-start;
 			align-items: center;
 			.msg-item {
-				width: 80%;
+				width: 100%;
 				display: flex;
 				padding: 0 10%;
 				.title {
