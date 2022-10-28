@@ -4,7 +4,7 @@
 			<view class="list-box">
 				<view class="list-item">
 					<view @click="showDetailVisible = 1">我的隔离时间</view>
-					<view>2022-05-01至2022-09-01</view>
+					<view>{{startTime}}至{{endTime}}</view>
 				</view>
 			</view>
 		</view>
@@ -14,8 +14,11 @@
 					<view>{{ item.startTime }}</view>
 				</view>
 				<view class="item-centent">
-					<view>体温：{{ item.isRemember === 1 ? '正常' : '异常' }}</view>
-					<view>核酸：{{ item.isRemember === 1 ? '阳性' : '阴性' }}</view>
+					<view style="display: flex;">
+						<view style="flex-basis: 23%" >体温: </view>
+							<view style="color: black">{{ item.temperature === 0 ? '正常' : '异常' }}</view>
+							</view>
+					<view style="display: flex;"><view style="flex-basis: 23%">打卡时间: </view>	<span style="color: black">{{item.createTime}}</span></view>
 				</view>
 				<view class="item-bottom">
 				</view>
@@ -27,32 +30,28 @@
 
 <script>
 import { mapState } from 'vuex';
-import { GetHistoryList} from '@/api/isolation.js'
+import { GetHistoryList, QueryIsolationTime} from '@/api/isolation.js'
 export default {
+	
 	data() {
 		return {
 			topNum: 0,
 			inputValue: '',
 			inputDisabled: true,
 			showDetailVisible: 1,
-			historyList: [
-				{ id: '1123123213124', name: '张三', isRemember: 1, startTime: '2022-09-22 00:00:00', result: 1 },
-				{ id: '1123123213122', name: '张三', isRemember: 1, startTime: '2022-09-22 00:00:00', result: 1 },
-				{ id: '1123123213123', name: '张三', isRemember: 1, startTime: '2022-09-22 00:00:00', result: 0 },
-				{ id: '1123123213144', name: '张三', isRemember: 1, startTime: '2022-09-22 00:00:00', result: 1 },
-				{ id: '1123123213144', name: '张三', isRemember: 1, startTime: '2022-09-22 00:00:00', result: 1 },
-				{ id: '1123123213144', name: '张三', isRemember: 1, startTime: '2022-09-22 00:00:00', result: 1 },
-				{ id: '1123123213144', name: '张三', isRemember: 1, startTime: '2022-09-22 00:00:00', result: 1 },
-				{ id: '1123123213144', name: '张三', isRemember: 1, startTime: '2022-09-22 00:00:00', result: 1 },
-				{ id: '1123123213144', name: '张三', isRemember: 1, startTime: '2022-09-22 00:00:00', result: 1 },
-				{ id: '1123123213144', name: '张三', isRemember: 1, startTime: '2022-09-22 00:00:00', result: 1 },
-				{ id: '1123123213125', name: '张三', isRemember: 1, startTime: '2022-09-22 00:00:00', result: 0 }
-			],
-			detailList: { id: '1123123213124', name: '张三', isRemember: 1, startTime: '2022-09-22 00:00:00', result: 1 }
+			startTime: '',
+			endTime: '',
+			historyList: []
 		};
 	},
 	created() {
 		this.getHistoryList();
+		this.queryIsolationTime();
+	},
+	destroyed() {
+		uni.redirectTo({
+			url: '/pages/isolationPersonnel/index/index'
+		})
 	},
 	methods: {
 		getHistoryList() {
@@ -62,6 +61,12 @@ export default {
 			}).then(res => {
 				this.historyList = res.data
 				this.total = res.total
+			})
+		},
+		queryIsolationTime() {
+			QueryIsolationTime().then(res => {
+				this.startTime = res.startTime
+				this.endTime = res.endTime
 			})
 		}
 	},

@@ -1,4 +1,4 @@
-import request from '../../utils/request.js'
+import request from '../../http/request.js'
 // 扫码获取学生的信息以及操作权限
 export function GetStuInfo(data) {
 	return request({
@@ -24,5 +24,14 @@ export function LiftIsolationOperation(data) {
 		method: 'get',
 		header: {'Authorization': uni.getStorageSync('token')},
 		data
+	})
+}
+
+// 查询教职工是否上班打卡
+export function QueryIsUpDaily() {
+	return request({
+		url: '/app/teacherDaily/queryIsUpDaily',
+		method: 'get',
+		header: {'Authorization': uni.getStorageSync('token')}
 	})
 }

@@ -32,10 +32,10 @@
 					</view>
 					<view class="item-bottom">
 						<view>由{{ item.name }}提交</view>
-						<view v-if="item.approvalResult == 0">未处理</view>
-						<view v-else-if="item.approvalResult == 1">审批同意</view>
-						<view v-else-if="item.approvalResult == 2">审批拒绝</view>
-						<view v-else-if="item.approvalResult == 3">正在处理中</view>
+						<view style="color: #f0ad4e;" v-if="item.approvalResult == 0">未处理</view>
+						<view style="color: #4cd964;" v-else-if="item.approvalResult == 1">审批同意</view>
+						<view style="color: #dd524d;" v-else-if="item.approvalResult == 2">审批拒绝</view>
+						<view style="color:#007aff;" v-else-if="item.approvalResult == 3">正在处理中</view>
 					</view>
 				</view>
 			</view>
@@ -60,7 +60,7 @@
 						</u-empty>
 					</view>
 				</scroll-view>
-				<view class="input-box" v-show="topList[0].num == 0">
+				<view class="input-box" v-show="topList[0].num !== 0">
 					<u--input placeholder="请输入内容" border="surround" v-model="inputValue"></u--input>
 					<view><u-button type="primary" :disabled="inputDisabled" @click="dealReturnLeave">发送</u-button></view>
 				</view>
@@ -72,24 +72,27 @@
 						<view>{{ detailList.name }}的请假审批单</view>
 						<view>杭州电子科技大学信息工程学院</view>
 					</view>
-					<view >{{ leaveResults(detailList.approvalResult)}}</view>
+					<view style="color: #f0ad4e;" v-if="detailList.approvalResult == 0">未处理</view>
+					<view style="color: #4cd964;" v-else-if="detailList.approvalResult == 1">同意</view>
+					<view style="color: #dd524d;" v-else-if="detailList.approvalResult == 2">拒绝</view>
+					<view style="color:#007aff;" v-else-if="detailList.approvalResult == 3">正在处理中</view>
 					<view class="logo"><askLogo :type="detailList.approvalResult"></askLogo></view>
 				</view>
 				<view class="detail-mid">
-					<view>审批编号</view>
-					<view>{{ detailList.id }}</view>
-					<view>信息相关</view>
-					<view>学生-{{ userinfo.deptName }}-{{ userinfo.majorName }}-{{ userinfo.className }}</view>
-					<view>请假类型</view>
-					<view>{{detailList.type === 0 ? '事假' : '病假'}}</view>
-					<view>预计出校时间</view>
-					<view>{{detailList.estimateStartTime}}</view>
-					<view>预计返校校时间</view>
-					<view>{{detailList.estimateEndTime}}</view>
-					<view>请假去向</view>
-					<view>{{detailList.target}}</view>
-					<view>请假原因</view>
-					<view>{{detailList.reason}}</view>
+					<view class="text1">审批编号</view>
+					<view class="text2">{{ detailList.id }}</view>
+					<view class="text1">信息相关</view>
+					<view class="text2">学生-{{ userinfo.deptName }}-{{ userinfo.majorName }}-{{ userinfo.className }}</view>
+					<view class="text1">请假类型</view>
+					<view class="text2">{{detailList.type === 0 ? '事假' : '病假'}}</view>
+					<view class="text1">预计出校时间</view>
+					<view class="text2">{{detailList.estimateStartTime}}</view>
+					<view class="text1">预计返校校时间</view>
+					<view class="text2">{{detailList.estimateEndTime}}</view>
+					<view class="text1">请假去向</view>
+					<view class="text2">{{detailList.target}}</view>
+					<view class="text1">请假原因</view>
+					<view class="text2">{{detailList.reason}}</view>
 				</view>
 				<view class="detail-bottom">
 					<view>流程</view>
@@ -236,6 +239,7 @@ export default {
 		padding-top: 1vh;
 		display: flex;
 		align-items: center;
+		border-bottom: 1px solid #e0e0e0;
 	}
 .container {
 	width: 100vw;
@@ -266,6 +270,14 @@ export default {
 				font-size: 28px;
 			}
 		}
+	}
+	.text1 {
+		color: #75767A;
+		margin-bottom: 10px;
+	}
+	.text2 {
+		color: #18191D;
+		margin-bottom: 10px;
 	}
 	.message-list {
 		flex: 1;

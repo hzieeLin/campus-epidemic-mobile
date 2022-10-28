@@ -1,4 +1,4 @@
-import request from '../../utils/request.js'
+import request from '../../http/request.js'
 
 export function AddLeave(data) {
 	return request({
@@ -21,6 +21,16 @@ export function AddStudentDaily(data) {
 export function DealReturnLeave(data) {
 	return request({
 		url: `/app/leave/returnLeaveToAdminMessage`,
+		method: 'post',
+		header: {'Authorization': uni.getStorageSync('token')},
+		data
+	})
+}
+
+//回校
+export function BackSchool(data) {
+	return request({
+		url: `/app/leave/backSchool`,
 		method: 'post',
 		header: {'Authorization': uni.getStorageSync('token')},
 		data

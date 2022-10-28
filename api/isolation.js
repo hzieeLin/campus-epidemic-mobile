@@ -1,4 +1,4 @@
-import request from '@/utils/request.js'
+import request from '@/http/request.js'
 
 export function GetHistoryList(data) {
 	return request({
@@ -24,5 +24,13 @@ export function QueryPageFeedbackAcceptanceByIsolation(data) {
 		method: 'get',
 		header: {'Authorization': uni.getStorageSync('token')},
 		data
+	})
+}
+
+export function QueryIsolationTime() {
+	return request({
+		url: `/app/isolationDetail/queryIsolationTime`,
+		method: 'get',
+		header: {'Authorization': uni.getStorageSync('token')}
 	})
 }

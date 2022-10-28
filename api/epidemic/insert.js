@@ -1,11 +1,11 @@
-import request from '../../utils/request.js'
+import request from '../../http/request.js'
 //  上班打卡
 export function UpDaily(data) {
 	return request({
 		url: '/app/teacherDaily/upDaily',
 		method: 'get',
 		header: {'Authorization': uni.getStorageSync('token')},
-		params: {...data}
+		data
 	})
 }
 // 下班打卡
@@ -19,7 +19,7 @@ export function DownDaily() {
 // 防疫人员个人反馈
 export function AddEpidemicAppFeedbackAcceptance(data) {
 	return request({
-		url: '/app/feedbackAcceptance/addEpidemicAppFeedbackAcceptance',
+		url: '/pc/feedbackAcceptance/addEpidemicFeedbackAcceptance',
 		method: 'post',
 		header: {'Authorization': uni.getStorageSync('token')},
 		data

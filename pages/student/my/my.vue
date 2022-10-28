@@ -43,12 +43,12 @@
 			<view>
 				<u-row>
 					<u-col span="4">旧密码</u-col>
-					<u-col span="9"><u--input placeholder="填写原密码" border="surround" v-model.trim="pwdInfo.password"></u--input></u-col>
+					<u-col span="9"><u--input placeholder="填写原密码" type="password" border="surround" v-model.trim="pwdInfo.password"></u--input></u-col>
 				</u-row>
 				<u-gap height="40" bgColor="#fff"></u-gap>
 				<u-row>
 					<u-col span="4">新密码</u-col>
-					<u-col span="9"><u--input placeholder="填写新密码" border="surround" v-model.trim="pwdInfo.passwordRepeat"></u--input></u-col>
+					<u-col span="9"><u--input placeholder="填写新密码" type="password" border="surround" v-model.trim="pwdInfo.passwordRepeat"></u--input></u-col>
 				</u-row>
 			</view>
 		</u-modal>
@@ -89,7 +89,7 @@ export default {
 		}, 1000);
 	},
 	methods: {
-		...mapMutations('m_tarbar', ['updateTokenType']),
+		...mapMutations('m_tabbar', ['updateTokenType']),
 		getStuInfo() {
 			getScanInfo().then(res => {
 				console.log(res);
@@ -106,6 +106,11 @@ export default {
 		},
 		handleEditPwd() {
 			EditPwd(this.pwdInfo).then((res) => {
+				uni.navigateTo({
+					url: '/pages/account/login/login'
+				});
+				uni.setStorageSync('token', '')
+				this.updateTokenType('')
 				this.showEditPwd = false
 				uni.showToast({
 						title: `密码修改成功！`,
@@ -115,7 +120,8 @@ export default {
 			})
 		},
 		loginOut() {
-			uni.setStorageSync('token', null);
+			uni.setStorageSync('token', '');
+			this.updateTokenType('')
 			uni.navigateTo({
 				url: `/pages/account/login/login`
 			})

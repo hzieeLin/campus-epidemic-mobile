@@ -1,4 +1,4 @@
-import request from '../../utils/request.js'
+import request from '../../http/request.js'
 // 同意审批
 export function Agree(data) {
 	return request({

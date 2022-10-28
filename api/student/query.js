@@ -1,4 +1,4 @@
-import request from '../../utils/request.js'
+import request from '../../http/request.js'
 
 export function getScanInfo() {
 	return request({
@@ -62,3 +62,4 @@ export function QueryLeaveChat() {
 		header: {'Authorization': uni.getStorageSync('token')}
 	})
 }
+

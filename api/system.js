@@ -1,4 +1,4 @@
-import request from '../utils/request.js'
+import request from '../http/request.js'
 // 查询全国省份
 export function GetProvinceList() {
 	return request({
@@ -54,7 +54,7 @@ export function UploadImg(data) {
 
 export function EditPwd(data) {
 	return request({
-		url: `xxx`,
+		url: `/pc/user/changePwd`,
 		method: 'post',
 		data,
 		header: {

@@ -16,8 +16,6 @@
 				</view>
 			</view>
 			<view class="code-info" v-show="state === 0">
-				<view class="form-item-label">健康码上传</view>
-				<view class="form-item-content"><u-upload :fileList="fileList" @afterRead="afterRead" name="1" multiple :maxCount="1"></u-upload></view>
 				<div style="padding-right: 5vw;">健康码颜色：</div>
 				 <u-radio-group @change="groupChange">
 				    <u-radio :customStyle="{marginRight: '8px'}" label="绿码" name="0" size="30" labelSize="24"></u-radio>
@@ -39,6 +37,7 @@
 	import { mapState} from 'vuex'
 	import { dateFormat} from '../../../utils/date.js'
 	import {UpDaily, DownDaily} from '../../../api/epidemic/insert.js'
+	import { QueryIsUpDaily} from '@/api/epidemic/query.js'
 	export default {
 		data() {
 			return {
@@ -53,39 +52,25 @@
 				this.time = dateFormat(null,null, 4)
 			},1000)
 		},
+		onLoad() {
+			this.queryIsUpDaily();
+		},
 		methods: {
 			async afterRead(event) {
 				// 当设置 mutiple 为 true 时, file 为数组格式，否则为对象格式
 				let lists = event.file;
 				this.fileList[0] = lists[0];
 			},
-			uploadFilePromise() {
-				// uni.compressImage({
-				// 	src: this.fileList[0].url,
-				// 	quality: 80,
-				// 	success: res => {
-				// 		console.log(res.tempFilePath)
-				// 	}
-				// })
-				uni.uploadFile({
-					url: 'https://49t17g0193.zicp.fun/campus-epidemic-system/app/teacherDaily/upDaily', //仅为示例，非真实的接口地址
-					filePath: this.fileList[0].name,
-					name: 'file',
-					formData: {
-									'result': this.result
-								},
-					header: {
-						Authorization: uni.getStorageSync('token')
-					},
-					success: uploadFileRes => {
-						console.log(uploadFileRes);
-						this.success = 1;
-					}
-				})
-			},
 			groupChange(e) {
 				this.result = parseInt(e)
-				console.log(this.result);
+			},
+			queryIsUpDaily() {
+				QueryIsUpDaily().then(res => {
+					console.log(res);
+					if(res === 1) {
+						this.state = 1
+					} 
+				})
 			},
 			changeType(i) {
 				if (i === 0) {
@@ -96,8 +81,12 @@
 			},
 			submit() {
 				if(this.state === 0) {
-					this.uploadFilePromise()
-					this.state = 3
+					const data = {
+						result: this.result
+					}
+					UpDaily(data).then(() => {
+						this.state = 3
+					})
 				} else if(this.state === 1) {
 					DownDaily().then(() => {
 						this.state = 3
@@ -170,10 +159,11 @@
 			}
 		}
 		.code-info {
-			margin-top: 20px;
 			background-color: #fff;
-			width: 100%;
-			height: 20vh;
+			margin: 20px auto;
+			padding-top: 20px;
+			width: 90%;
+			height: 14vh;
 			display: flex;
 			flex-direction: column;
 			// align-items: center;

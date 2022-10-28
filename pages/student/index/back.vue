@@ -2,27 +2,27 @@
 	<view class="page-container">
 		<view class="top-notice">notice图片区域</view>
 		<view class="content">
-			<view class="form-item">
+			<!-- <view class="form-item">
 				<view class="form-item-label">健康码上传</view>
 				<view class="form-item-content"><u-upload :fileList="fileList" @afterRead="afterRead" @delete="deletePic" name="1" multiple :maxCount="1"></u-upload></view>
-			</view>
+			</view> -->
 			<view class="form-item">
 				<view class="form-item-label">核酸结果</view>
 				<view class="form-item-content">
 					<u-radio-group @change="groupChange">
-						<u-radio label="阴性" name="0" size="30" :customStyle="{ marginRight: '8px' }"></u-radio>
-						<u-radio label="阳性" name="1" size="30" :customStyle="{ marginRight: '8px' }"></u-radio>
+						<u-radio label="阴性" name="0" size="40" :customStyle="{ marginRight: '8px' }"></u-radio>
+						<u-radio label="阳性" name="1" size="40" :customStyle="{ marginRight: '8px' }"></u-radio>
 					</u-radio-group>
 				</view>
 			</view>
 			<view style="color: red;">{{ this.success }}</view>
 		</view>
-		<view class="btn"><u-button type="primary" @click="uploadFilePromise">提交</u-button></view>
+		<view class="btn"><u-button type="primary" @click="backSchool">提交</u-button></view>
 	</view>
 </template>
 
 <script>
-import { UploadImg } from '../../../api/system.js';
+import { BackSchool } from '@/api/student/insert.js';
 export default {
 	data() {
 		return {
@@ -38,37 +38,13 @@ export default {
 		deletePic(event) {
 			this.fileList = {};
 		},
-		async afterRead(event) {
-			// 当设置 mutiple 为 true 时, file 为数组格式，否则为对象格式
-			let lists = event.file;
-			this.fileList[0] = lists[0];
-		},
-		uploadFilePromise() {
-			console.log(this.fileList[0].url);
-			uni.compressImage({
-				src: this.fileList[0].url,
-				quality: 80,
-				success: res => {
-					console.log(res);
-					uni.uploadFile({
-						url: 'https://49t17g0193.zicp.fun/campus-epidemic-system/app/leave/backSchool', //仅为示例，非真实的接口地址
-						filePath: res.tempFilePath,
-						name: 'healthCodePicture',
-						formData: {
-							'nucleicAcid': this.nucleicAcid
-						},
-						header: {
-							Authorization: uni.getStorageSync('token')
-						},
-						success: uploadFileRes => {
-							console.log(uploadFileRes);
-							this.success = 1;
-						},
-						error: err => {
-							console.log(err);
-						}
-					})
-				}
+		backSchool() {
+			const data = {
+				nucleicAcid: this.nucleicAcid
+			}
+			BackSchool(data).then(res => {
+				console.log(res);
+				this.success = 1
 			})
 		}
 	}

@@ -24,12 +24,12 @@ export default {
   width: 70px;
   height: 70px;
   border-radius: 50%;
-  border: 4px solid #13ce66;
+  border: 4px solid #A0E4CD;
   position: relative;
   .inner-box {
     width: 50px;
     height: 50px;
-    border: 2px solid #13ce66;
+    border: 2px solid #A0E4CD;
     border-radius: 50%;
     position: absolute;
     left: 50%;
@@ -41,7 +41,7 @@ export default {
       line-height: 20px;
       position: absolute;
       background: #fff;
-      color: #13ce66;
+      color: #A0E4CD;
       border-radius: 10px;
       left: 50%;
       top: 46%;
