@@ -166,6 +166,14 @@
             }
             
         }
+        ,{
+            "path" : "pages/common/leaveSuccess/leaveSuccess",
+            "style" :                                                                                    
+            {
+                "navigationStyle": "custom" 
+            }
+            
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

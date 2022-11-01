@@ -1,6 +1,18 @@
 <template>
 	<view class="page-container">
-		<view class="top-notice">notice图片区域</view>
+		<view class="top-notice">
+			<view>各位同学：目前部分省市出现了阳性病例，疫情防控形势严峻。请各位同学克服麻痹思想和侥幸心理，非必要不出校。</view>
+			<view>=======================</view>
+			<view>请假规则： 务必仔细阅读</view>
+			<view>若钉钉请假时间为4月3日 12:00-14:00，</view>
+			<view>（1）出校时间有效范围：</view>
+			<view>4月3日 11:00-13:00之间，道闸自动开启。</view>
+			（2）回校时间有效期范围：当天15:00点之前。
+			请各位同学按照规定时间内回校，超时需要手动销假的同学，将列入黑名单，限制下次请假。
+			<view>=======================</view>
+			**特别提醒**请进出校园之前，检查核酸报告的有效时间（当前是72小时内）。
+			<view>谎报、虚报将承担相应的法律责任。</view>
+		</view>
 		<view class="content">
 			<!-- <view class="form-item">
 				<view class="form-item-label">健康码上传</view>
@@ -15,7 +27,6 @@
 					</u-radio-group>
 				</view>
 			</view>
-			<view style="color: red;">{{ this.success }}</view>
 		</view>
 		<view class="btn"><u-button type="primary" @click="backSchool">提交</u-button></view>
 	</view>
@@ -43,8 +54,9 @@ export default {
 				nucleicAcid: this.nucleicAcid
 			}
 			BackSchool(data).then(res => {
-				console.log(res);
-				this.success = 1
+														uni.navigateTo({
+															url: '/pages/common/leaveSuccess/leaveSuccess'
+														})
 			})
 		}
 	}
@@ -59,17 +71,24 @@ export default {
 	display: flex;
 	flex-direction: column;
 	.top-notice {
-		flex-basis: 20%;
-		// background-color: #33eeee;
+			height: 30%;
+			margin-bottom: 1vh;
+			padding: 0 10rpx;
+			overflow: auto;
+			background-color: #f1f1f1;
+			color: #868686;
 	}
 	.content {
 		flex: 1;
 		.form-item {
+			width: 90%;
+			margin: 5vh auto 0;
 			height: 100px;
 			background-color: #fff;
-			margin-bottom: 1vh;
 			display: flex;
+			border-radius: 10px;
 			flex-direction: column;
+			padding: 10px 10px;
 			.form-item-label {
 				flex-basis: 30%;
 				display: flex;
@@ -79,7 +98,7 @@ export default {
 				flex: 1;
 				display: flex;
 				align-items: center;
-				padding: 0 4vw;
+				padding: 0 0;
 			}
 		}
 	}

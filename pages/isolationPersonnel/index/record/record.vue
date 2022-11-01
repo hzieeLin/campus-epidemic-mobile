@@ -55,10 +55,11 @@ export default {
 	},
 	methods: {
 		getHistoryList() {
-			GetHistoryList({
-				pageNum: 1,
-				pageSize: 14
-			}).then(res => {
+			const data = {
+					pageNum: 1,
+					pageSize: 10
+			}
+			GetHistoryList(data).then(res => {
 				this.historyList = res.data
 				this.total = res.total
 			})

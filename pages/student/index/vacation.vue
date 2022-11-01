@@ -210,19 +210,21 @@ export default {
 		queryLeaveChat() {
 			QueryLeaveChat().then(res => {
 				this.charList = res
+				lo
 				console.log(this.charList);
 			})
 		},
 		dealReturnLeave() {
 			  const data = {
-			    id: this.detailList.id,
+			    id: this.historyList[0].id,
 			    message: this.inputValue
 			  }
 			  DealReturnLeave(data).then(() => {
 					this.scroolBottom()
 			    this.inputValue = ''
-					this.showDetail(this.detailList.id)
+					this.showDetail(this.historyList[0].id)
 					this.showDetailVisible = 3
+					this.queryLeaveChat();
 			  })
 		}
 	},

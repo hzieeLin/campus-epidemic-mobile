@@ -14,8 +14,8 @@
 					</view>
 					<view>
 						<view style="display: flex;justify-content: space-around;">
-							<view class="func-item" @click="handleIsolation">进行隔离</view>
-							<view class="func-item" @click="handleLiftIsolation">解除隔离</view>
+							<view class="func-item" v-show="stuInfo.isolationOperation" @click="handleIsolation">进行隔离</view>
+							<view class="func-item" v-show="stuInfo.releaseQuarantine" @click="handleLiftIsolation">解除隔离</view>
 							<!-- <view class="func-item">添加记录</view> -->
 						</view>
 					</view>
@@ -44,7 +44,9 @@
 					name: '',
 					majorName: '',
 					className: '',
-					phone: ''
+					phone: '',
+					isolationOperation: '',
+					releaseQuarantine: ''
 				}
 			}
 		},
@@ -62,6 +64,9 @@
 					this.stuInfo.majorName = res.majorName
 					this.stuInfo.className = res.className
 					this.stuInfo.phone = res.phone
+					this.stuInfo.isolationOperation = res.isolationOperation
+					this.stuInfo.releaseQuarantine = res.releaseQuarantine
+					console.log(this.stuInfo);
 				})
 			},
 			handleIsolation() {
@@ -81,10 +86,10 @@
 			},
 			handleLiftIsolation() {
 				const data = {
-					id: "1562791600331968514"
+					id: this.userId
 					
 				}
-				IsolationOperation(data).then((res) => {
+				LiftIsolationOperation(data).then((res) => {
 					uni.showToast({
 							title: `解除成功！`,
 							icon: 'success',

@@ -25,12 +25,12 @@
 				<view class="form-item-label">2.是否存在发热,干咳,乏力等症状</view>
 				<view class="form-item-content">
 					<u-radio-group
-					  v-model="formData.cough"
+					  v-model="formData.abnormalSymptoms"
 					  placement="column"
 					  @change="groupChange1"
 					>
-					<u-radio label="是" name="0" size="30" labelSize="24" :customStyle="{marginBottom: '8px'}"></u-radio>
-					<u-radio label="否" name="1" size="30" labelSize="24"></u-radio>
+					<u-radio label="是" name="1" size="30" labelSize="24" :customStyle="{marginBottom: '8px'}"></u-radio>
+					<u-radio label="否" name="0" size="30" labelSize="24"></u-radio>
 					</u-radio-group>
 				</view>
 			</view>
@@ -38,7 +38,7 @@
 				<view class="form-item-label">3.健康码颜色</view>
 				<view class="form-item-content">
 					<u-radio-group
-					  :v-model="formData.color"
+					  :v-model="formData.healthCode"
 						@change="groupChange2">
 						<u-radio label="绿码" name="0" size="30" labelSize="24" :customStyle="{marginRight: '8px'}"></u-radio>
 						<u-radio label="黄码" name="1" size="30" labelSize="24" :customStyle="{marginRight: '8px'}"></u-radio>
@@ -50,7 +50,7 @@
 				<view class="form-item-label">4.本人承诺以上提供的资料真实准确</view>
 				<view class="form-item-content">
 					<u-radio-group
-					  v-model="formData.agree"
+					  v-model="formData.promise"
 					  placement="column"
 					  @change="groupChange3"
 					>
@@ -67,6 +67,7 @@
 </template>
 
 <script>
+	import {InsertDetail} from '@/api/isolation.js'
 	export default {
 		onLoad() {
 		},
@@ -74,9 +75,9 @@
 			return {
 				formData: {
 					temperature: null,
-					cough: null,
-					color: null,
-					agree: null
+					abnormalSymptoms: null,
+					healthCode: null,
+					promise: null
 				}
 			}
 		},
@@ -85,13 +86,13 @@
 				this.formData.temperature = e
 			},
 			groupChange1(e) {
-				this.formData.cough = e
+				this.formData.abnormalSymptoms = e
 			},
 			groupChange2(e) {
-				this.formData.color = e
+				this.formData.healthCode = e
 			},
 			groupChange3(e) {
-				this.formData.agree = e
+				this.formData.promise = e
 			},
 			submitLeave() {
 				let result = 0
@@ -112,10 +113,12 @@
 					}
 				}
 				if(result === 4) {
+					InsertDetail(this.formData).then(res => {
 						uni.navigateTo({
 							url: '/pages/common/subSuccess/subSuccess'
 						})
-						}
+					})
+				}
 				// 写提交代码api调用
 			}
 		}

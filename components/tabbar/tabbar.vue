@@ -9,6 +9,7 @@
 </template>
 <script>
 import {mapState} from 'vuex'
+import { OutSchool} from '@/api/student/insert.js'
 export default {
 	name:"tabbar",
 	data() {
@@ -47,9 +48,21 @@ export default {
 									let rst = res.result
 									switch(this.tokenType) {
 										case '学生':
+												console.log(rst.indexOf('入校'));
+												if(rst.indexOf('入校') >= 0) {
+													uni.navigateTo({
+														url: '/pages/student/index/back'
+													})
+												}else if(rst.indexOf('出校') >= 0) {
+													console.log('出校');
+													OutSchool().then(res => {
+														uni.navigateTo({
+															url: '/pages/common/leaveSuccess/leaveSuccess'
+														})
+													})
+												}
 												break
 										case '防疫人员':
-												console.log('ret',JSON.stringify(res.result))
 												uni.navigateTo({
 													url: `/pages/epidemicPersonnel/scan/scan?id=${rst.split(',')[0]}&time=${rst.split(',')[1]}`
 												})

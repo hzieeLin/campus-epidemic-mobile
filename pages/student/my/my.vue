@@ -105,7 +105,7 @@ export default {
 			this.currentTime = dateFormat(null, null, 3);
 		},
 		handleEditPwd() {
-			EditPwd(this.pwdInfo).then((res) => {
+			EditPwd(this.pwdInfo).then(() => {
 				uni.navigateTo({
 					url: '/pages/account/login/login'
 				});

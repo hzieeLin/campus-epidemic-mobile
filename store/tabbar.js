@@ -1,7 +1,7 @@
 export default {
 	namespaced: true,
 	state: () => ({
-			tokenType: JSON.parse(uni.getStorageSync('tokenType')) 
+			tokenType: ''
 		}),
 		mutations: {
 			updateTokenType(state, tokenType) {

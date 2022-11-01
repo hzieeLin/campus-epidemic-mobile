@@ -9,6 +9,13 @@ export function AddLeave(data) {
 	})
 }
 
+export function OutSchool() {
+	return request({
+		url: '/app/leave/outSchool',
+		method: 'get',
+		header: {'Authorization': uni.getStorageSync('token')},
+	})
+}
 export function AddStudentDaily(data) {
 	return request({
 		url: `/app/studentDaily/addStudentDaily`,

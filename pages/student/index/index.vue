@@ -28,7 +28,7 @@
 					<view class="func-remark">出校审批入口</view>
 				</view>
 			</view>
-			<view class="func-item">
+			<view class="func-item" v-show="false">
 				<view class="inner-box" @click="openPage(2)">
 					<u-icon name="bag-fill" color="#00aaff" class="phone-icon" size="70"></u-icon>
 					<view class="func-title">返校审批</view>

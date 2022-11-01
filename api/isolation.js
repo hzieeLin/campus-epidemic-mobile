@@ -11,7 +11,7 @@ export function GetHistoryList(data) {
 
 export function AddFeedbackAcceptanceByIsolation(data) {
 	return request({
-		url: `/app/feedbackAcceptance/addFeedbackAcceptanceByIsolation`,
+		url: `/app/feedbackAcceptance/stuAddFeedbackAcceptance`,
 		method: 'post',
 		header: {'Authorization': uni.getStorageSync('token')},
 		data
@@ -34,3 +34,13 @@ export function QueryIsolationTime() {
 		header: {'Authorization': uni.getStorageSync('token')}
 	})
 }
+
+export function InsertDetail(data) {
+	return request({
+		url: `/app/isolationDetail/insertDetail`,
+		method: 'post',
+		header: {'Authorization': uni.getStorageSync('token')},
+		data
+	})
+}
+
