@@ -21,13 +21,13 @@
 					<view class="func-remark">日常健康打卡</view>
 				</view>
 			</view>
-			<view class="func-item">
-				<view class="inner-box" @click="openPage(1)">
+			<!-- <view class="func-item"> -->
+<!-- 				<view class="inner-box" @click="openPage(1)">
 					<u-icon name="minus-square-fill" color="#ffaa00" class="phone-icon" size="70"></u-icon>
 					<view class="func-title">隔离反馈</view>
 					<view class="func-remark">来自隔离人员的反馈处理</view>
-				</view>
-			</view>
+				</view> -->
+			<!-- </view> -->
 			<view class="func-item">
 				<view class="inner-box" @click="openPage(2)">
 					<u-icon name="bag-fill" color="#00aaff" class="phone-icon" size="70"></u-icon>
@@ -97,7 +97,7 @@ export default {
 	}
 	.swiper {
 		width: 100%;
-		height: 26vh;
+		height: 22vh;
 		.swiper-item {
 			width: 100%;
 			height: 100%;
@@ -137,7 +137,7 @@ export default {
 				.func-remark {
 					flex: 1;
 					color: #838383;
-					font-size: 14rpx;
+					font-size: 20rpx;
 					padding-left: 20rpx;
 				}
 			}

@@ -7,58 +7,64 @@
 		<view>
 			<view class="info">
 				<u-row justify="center" customStyle="margin: 10px 0">
-				       <u-col span="12" textAlign="center">
-				           <view class="demo-layout bg-purple-light"><h4>基本信息</h4></view>
-				       </u-col>
-				   </u-row>
-				 <u-row justify="center" customStyle="margin: 10px 0">
-				        <u-col span="6" textAlign="center">
-				            <view class="demo-layout bg-purple-light"><h4>学生姓名:</h4></view>
-				        </u-col>
-				        <u-col span="6">
-				            <view class="demo-layout bg-purple">{{ userinfo.name }}</view>
-				        </u-col>
-				    </u-row>
-				    <u-row customStyle="margin: 10px 0">
-				        <u-col span="6" textAlign="center">
-				            <view class="demo-layout bg-purple-light"><h4>所在学院:</h4></view>
-				        </u-col>
-				        <u-col span="6">
-				            <view class="demo-layout bg-purple">{{ userinfo.deptName }}</view>
-				        </u-col>
-				    </u-row>
-						<u-row customStyle="margin: 10px 0">
-						    <u-col span="6" textAlign="center">
-						        <view class="demo-layout bg-purple-light"><h4>学生学号:</h4></view>
-						    </u-col>
-						    <u-col span="6">
-						        <view class="demo-layout bg-purple">{{ userinfo.code }}</view>
-						    </u-col>
-						</u-row>
+					<u-col span="12" textAlign="center">
+						<view class="demo-layout bg-purple-light"><h4>基本信息</h4></view>
+					</u-col>
+				</u-row>
+				<u-row justify="center" customStyle="margin: 10px 0">
+					<u-col span="6" textAlign="center">
+						<view class="demo-layout bg-purple-light"><h4>学生姓名:</h4></view>
+					</u-col>
+					<u-col span="6">
+						<view class="demo-layout bg-purple">{{ userinfo.name }}</view>
+					</u-col>
+				</u-row>
+				<u-row customStyle="margin: 10px 0">
+					<u-col span="6" textAlign="center">
+						<view class="demo-layout bg-purple-light"><h4>所在学院:</h4></view>
+					</u-col>
+					<u-col span="6">
+						<view class="demo-layout bg-purple">{{ userinfo.deptName }}</view>
+					</u-col>
+				</u-row>
+				<u-row customStyle="margin: 10px 0">
+					<u-col span="6" textAlign="center">
+						<view class="demo-layout bg-purple-light"><h4>学生学号:</h4></view>
+					</u-col>
+					<u-col span="6">
+						<view class="demo-layout bg-purple">{{ userinfo.code }}</view>
+					</u-col>
+				</u-row>
 			</view>
 		</view>
 		<view class="content">
-			<view class="icons">
-				<image src="../../../static/code.jpg" mode="" ></image>
-			</view>
+			<view class="icons"><image src="../../../static/code.jpg" mode=""></image></view>
 		</view>
-		<view class="text">
-			可出行
-		</view>
+		<view class="text">可{{msg}}</view>
 	</view>
 </template>
 
 <script>
 import { mapState } from 'vuex';
 export default {
+	onLoad(option) {
+		if(option.msg == 0) {
+			this.msg = '出校'
+			} 
+			else if(option.msg == 1) {
+			this.msg = '返校'
+			}
+	},
 	data() {
-		return {};
+		return {
+			msg: ''
+		};
 	},
 	methods: {
 		backIndex() {
-					uni.navigateTo({
-						url: '/pages/student/index/index'
-					})
+			uni.navigateTo({
+				url: '/pages/student/index/index'
+			});
 		}
 	},
 	computed: {
@@ -96,11 +102,14 @@ export default {
 		border: 5px solid #41c300;
 		border-radius: 20px;
 		position: relative;
-		.icons{
+		.icons {
+			position: relative;
 			image {
 				width: 100%;
 				display: block;
 				margin: 10px auto;
+				position: relative;
+				z-index: -1;
 			}
 		}
 	}

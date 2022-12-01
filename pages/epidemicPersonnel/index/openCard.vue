@@ -2,12 +2,11 @@
 	<view class="page-container">
 		<view class="content-box">
 			<view class="top">
-				<view ref="upWork" class="title" id="upWork" :style="state === 0 ? 'border-radius: 20px 0 0 20px; background: #346DF4; color: #F7F7F7':'border-radius: 20px 0 0 20px; background: #F7F7F7; color: #161616'" @click="changeType(0)">上班打卡</view>
-				<view ref="upWork" class="title" id="upWork" :style="state === 1 ? 'border-radius: 0 20px 20px 0; background: #346DF4; color: #F7F7F7':'border-radius: 0 20px 20px 0; background: #F7F7F7; color: #161616'" @click="changeType(1)">下班打卡</view>
+				<!-- <view ref="upWork" class="title" id="upWork" style="border-radius: 20px; background: #346DF4; color: #F7F7F7'" @click="changeType(0)">上班打卡</view> -->
 			</view>
 			<view class="info">
 				<view class="user-avatar">
-					<image src="../../../static/account.jpeg"></image>
+					<image src="../../../static/man.jpeg"></image>
 				</view>
 				<view class="user-info">
 					<view class="stu-code">工号：{{userinfo.code}}</view>
@@ -15,9 +14,9 @@
 					<view class="stu-name">姓名：{{userinfo.name}}</view>
 				</view>
 			</view>
-			<view class="code-info" v-show="state === 0">
+			<view class="code-info">
 				<div style="padding-right: 5vw;">健康码颜色：</div>
-				 <u-radio-group @change="groupChange">
+				 <u-radio-group @change="groupChange" :disabled="state !== 0">
 				    <u-radio :customStyle="{marginRight: '8px'}" label="绿码" name="0" size="30" labelSize="24"></u-radio>
 				    <u-radio :customStyle="{marginRight: '8px'}" label="黄码" name="1" size="30" labelSize="24"></u-radio>
 				    <u-radio :customStyle="{marginRight: '8px'}" label="红码" name="2" size="30" labelSize="24"></u-radio>
@@ -44,7 +43,8 @@
 				fileList: [],
 				state: 0,
 				time: '',
-				result: null
+				result: null,
+				oks: 0
 			}
 		},
 		created() {
@@ -56,19 +56,16 @@
 			this.queryIsUpDaily();
 		},
 		methods: {
-			async afterRead(event) {
-				// 当设置 mutiple 为 true 时, file 为数组格式，否则为对象格式
-				let lists = event.file;
-				this.fileList[0] = lists[0];
-			},
 			groupChange(e) {
 				this.result = parseInt(e)
 			},
 			queryIsUpDaily() {
 				QueryIsUpDaily().then(res => {
 					console.log(res);
-					if(res === 1) {
-						this.state = 1
+					if(res === 0) {
+						this.state = 0
+					} else if(res === 1) {
+						this.state = 3
 					} 
 				})
 			},
@@ -101,7 +98,7 @@
 					return '上班'
 				} else if(this.state === 1) {
 					return '下班'
-				} else {
+				}  else {
 					return '已'
 				}
 			}
@@ -131,6 +128,7 @@
 			.title {
 				width: 160rpx;
 				height: 60rpx;
+				color: #fff;
 				line-height: 60rpx;
 				text-align: center;
 				border: 1px solid #e0e0e0;
@@ -148,7 +146,7 @@
 				align-items: center;
 				image {
 					margin: 0 40rpx;
-					height: 60%;
+					height: 80%;
 					width: 50%;
 				}
 			}

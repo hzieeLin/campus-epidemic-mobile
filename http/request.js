@@ -1,7 +1,8 @@
 const reqest = (config) => {
 	// https://49t17g0193.zicp.fun/campus-epidemic-system
 	// config.url = 'https://49t17g0193.zicp.fun/campus-epidemic-system'+ config.url
-	config.url = 'http://1.15.240.139:1234/campus-epidemic-system'+ config.url
+	// config.url = 'http://121.40.174.108:1234/campus-epidemic-system'+ config.url
+	config.url = 'http://localhost:1235/campus-epidemic-system'+ config.url
 	// config.url = '/api'+ config.url
 	if(!config.data) {
 		config.data = {}

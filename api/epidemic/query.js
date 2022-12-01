@@ -35,3 +35,13 @@ export function QueryIsUpDaily() {
 		header: {'Authorization': uni.getStorageSync('token')}
 	})
 }
+
+//  查询教职工本月打卡日历
+export function QueryTeacherDailyHistory(data) {
+	return request({
+		url: '/pc/teacherDaily/queryTeacherDailyHistory',
+		method: 'get',
+		header: {'Authorization': uni.getStorageSync('token')},
+		data
+	})
+}

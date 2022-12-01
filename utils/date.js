@@ -18,5 +18,7 @@ export function dateFormat(time, datas, types) {
 		return `${hours}:${minutes}:${seconds}`
 	} else if(types === 5) {
 		return `${month}.${day}.${hours}}`
+	} else if(types === 6) {
+		return `${year}-${month}-${day}`
 	}
 }

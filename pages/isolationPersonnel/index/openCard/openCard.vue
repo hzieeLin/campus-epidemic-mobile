@@ -5,7 +5,7 @@
 			<view>各位同学：目前部分省市出现了阳性病例，疫情防控形势严峻。请各位同学克服麻痹思想和侥幸心理，非必要不出校。</view>
 			<view>=======================</view>
 			<view>请假规则： 务必仔细阅读</view>
-			<view>若钉钉请假时间为4月3日 12:00-14:00</view>
+			<view>对自己己负责、对他人负责的态度，按时、如实上报健康信息。</view>
 		</view>
 		<view class="form">
 			<view class="form-item">
@@ -35,14 +35,13 @@
 				</view>
 			</view>
 			<view class="form-item">
-				<view class="form-item-label">3.健康码颜色</view>
+				<view class="form-item-label">3.核酸结果（非必填）</view>
 				<view class="form-item-content">
 					<u-radio-group
 					  :v-model="formData.healthCode"
 						@change="groupChange2">
-						<u-radio label="绿码" name="0" size="30" labelSize="24" :customStyle="{marginRight: '8px'}"></u-radio>
-						<u-radio label="黄码" name="1" size="30" labelSize="24" :customStyle="{marginRight: '8px'}"></u-radio>
-						<u-radio label="红码" name="2" size="30" labelSize="24"></u-radio>
+						<u-radio label="阴性" name="0" size="30" labelSize="24" :customStyle="{marginRight: '8px'}"></u-radio>
+						<u-radio label="阳性" name="1" size="30" labelSize="24" :customStyle="{marginRight: '8px'}"></u-radio>
 						</u-radio-group>
 				</view>
 			</view>

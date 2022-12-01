@@ -18,6 +18,11 @@
 						<view style="flex-basis: 23%" >体温: </view>
 							<view style="color: black">{{ item.temperature === 0 ? '正常' : '异常' }}</view>
 							</view>
+							<view style="display: flex;">
+								<view style="flex-basis: 23%" >核酸结果: </view>
+									<view style="color: black" v-if="item.healthCode !== null">{{ item.healthCode === 0 ? '阴性' : '阳性' }}</view>
+									<view style="color: black" v-else>今日未有核酸结果</view>
+									</view>
 					<view style="display: flex;"><view style="flex-basis: 23%">打卡时间: </view>	<span style="color: black">{{item.createTime}}</span></view>
 				</view>
 				<view class="item-bottom">
@@ -42,7 +47,7 @@ export default {
 			startTime: '',
 			endTime: '',
 			historyList: []
-		};
+		}
 	},
 	created() {
 		this.getHistoryList();

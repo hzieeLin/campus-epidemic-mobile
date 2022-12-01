@@ -1,7 +1,10 @@
 <template>
 	<view class="page-container">
 		<view class="top">
-			<view class="img-avatar"><image class="img" src="../../../static/account.jpeg"></image></view>
+			<view class="img-avatar">
+				<image class="img" src="../../../static/stu1.png" v-if="userinfo.sex == '1'"></image>
+				<image class="img" src="../../../static/stu2.png" v-else></image>
+			</view>
 			<view class="userinfo">
 				<view class="info">
 					<view class="stu-name">{{ userinfo.name }}</view>
@@ -9,49 +12,41 @@
 					<view class="stu-code">{{ userinfo.code }}</view>
 				</view>
 			</view>
-			<view class="code"><uni-icons type="scan" size="30" @click="changeShowScan"></uni-icons></view>
+			<view class="code">
+				<u-icon name="scan" size="40" @click="changeShowScan"></u-icon>
+			</view>
+			<view class="more">
+					<u-icon name="more-dot-fill" size="50" @click="showType = true; uni.hideKeyboard()"></u-icon>
+			</view>
 		</view>
 		<view class="btn-list" v-if="showTwoScan">
-			<view class="item">
-				<view class="left">
-					<uni-icons type="staff-filled" size="30"></uni-icons>
-					<view @click="showEditPwd = true">修改密码</view>
-				</view>
-				<uni-icons type="forward" size="30"></uni-icons>
-			</view>
-			<view class="item">
-				<view class="left">
-					<uni-icons type="info-filled" size="30"></uni-icons>
-					<view>关于我们</view>
-				</view>
-				<uni-icons type="forward" size="30"></uni-icons>
-			</view>
-			<view class="item">
-				<view class="left">
-					<uni-icons type="gear-filled" size="30"></uni-icons>
-					<view @click="loginOut">退出登录</view>
-				</view>
-				<uni-icons type="forward" size="30"></uni-icons>
-			</view>
-		</view> 
+			<view class="my-calendar"><uni-calendar class="uni-calendar--hook" :showMonth="true" :selected="info.selected" @change="change" /></view>
+		</view>
 		<view class="two-scan" v-else>
 			<view class="currentTime">{{ currentTime }}</view>
 			<uqrcode ref="qrcode" class="content" canvas-id="qrcode" :value="scanInfo" :options="{ foregroundColor: 'green' }"></uqrcode>
-			<view class="message">(绿码为允许， 黄码或者红码为禁止)</view>
+			<view class="message">(绿码为允许， 黄码为禁止)</view>
 		</view>
-		<u-modal :show="showEditPwd" title="修改密码" showCancelButton="true" @cancel="showEditPwd = false" @confirm="handleEditPwd">
+		<u-modal :show="showEditPwd" title="修改密码" :showCancelButton="true" @cancel="showEditPwd = false" @confirm="handleEditPwd">
 			<view>
 				<u-row>
-					<u-col span="4">旧密码</u-col>
-					<u-col span="9"><u--input placeholder="填写原密码" type="password" border="surround" v-model.trim="pwdInfo.password"></u--input></u-col>
+					<u-col span="4">新密码</u-col>
+					<u-col span="8"><u--input placeholder="填写原密码" type="password" border="surround" v-model.trim="pwdInfo.password"></u--input></u-col>
 				</u-row>
 				<u-gap height="40" bgColor="#fff"></u-gap>
 				<u-row>
-					<u-col span="4">新密码</u-col>
-					<u-col span="9"><u--input placeholder="填写新密码" type="password" border="surround" v-model.trim="pwdInfo.passwordRepeat"></u--input></u-col>
+					<u-col span="4">重密码</u-col>
+					<u-col span="8"><u--input placeholder="填写新密码" type="password" border="surround" v-model.trim="pwdInfo.passwordRepeat"></u--input></u-col>
 				</u-row>
 			</view>
 		</u-modal>
+		<u-action-sheet
+						:show="showType"
+						:actions="actions"
+						@close="showType = false"
+						@select="TypeSelect"
+				>
+				</u-action-sheet>
 		<TabBar></TabBar>
 	</view>
 </template>
@@ -59,8 +54,8 @@
 <script>
 import UQRCode from 'uqrcodejs';
 import TabBar from '../../../components/tabbar/tabbar.vue';
-import {EditPwd } from '../../../api/system.js'
-import { getScanInfo } from '../../../api/student/query.js';
+import { EditPwd } from '../../../api/system.js';
+import { getScanInfo, QueryStudentDaily } from '@/api/student/query.js';
 import { dateFormat } from '../../../utils/date.js';
 import { mapState, mapMutations } from 'vuex';
 export default {
@@ -80,22 +75,41 @@ export default {
 			pwdInfo: {
 				password: '',
 				passwordRepeat: ''
-			}
+			},
+			info: {
+				selected: []
+			},
+			showType: false,
+			actions: [{name: '修改密码', value: 0},{name: '退出登录', value: 1}, {name: '取消', value: 2}],
 		};
 	},
 	created() {
 		setInterval(() => {
 			this.getCurrentTime();
 		}, 1000);
+		this.getStuInfo();
 	},
 	methods: {
 		...mapMutations('m_tabbar', ['updateTokenType']),
 		getStuInfo() {
 			getScanInfo().then(res => {
 				console.log(res);
-				this.scanInfo = `${res.id},${res.time}`
+				this.scanInfo = `${res.id},${res.time}`;
 				console.log(this.scanInfo);
+				this.queryStudentDaily(res.id);
 			});
+		},
+		TypeSelect(e) {
+			console.log(e.value);
+			if(e.value == 0) {
+				uni.navigateTo({
+					url: '/pages/common/leaveSuccess/leaveSuccess                   '
+				});
+			} else if(e.value == 1) {
+				this.loginOut()
+			} else {
+				this.showType = false
+			}
 		},
 		changeShowScan() {
 			this.getStuInfo();
@@ -104,27 +118,43 @@ export default {
 		getCurrentTime() {
 			this.currentTime = dateFormat(null, null, 3);
 		},
+		queryStudentDaily(id) {
+			const data = {
+				id: id,
+				year: new Date().getFullYear(),
+				month: new Date().getMonth()+1
+			};
+			QueryStudentDaily(data).then(res => {
+				res.forEach(item => {
+					this.info.selected.push({
+						date: dateFormat(item.createTime, null, 6),
+						info: '已打卡'
+					});
+				});
+			});
+		},
 		handleEditPwd() {
 			EditPwd(this.pwdInfo).then(() => {
 				uni.navigateTo({
 					url: '/pages/account/login/login'
 				});
-				uni.setStorageSync('token', '')
-				this.updateTokenType('')
-				this.showEditPwd = false
+				uni.setStorageSync('token', '');
+				this.updateTokenType('');
+				this.showEditPwd = false;
 				uni.showToast({
-						title: `密码修改成功！`,
-						icon: 'success',
-						duration: 2000
+					title: `密码修改成功！`,
+					icon: 'success',
+					duration: 2000
 				});
-			})
+			});
 		},
 		loginOut() {
 			uni.setStorageSync('token', '');
-			this.updateTokenType('')
+			this.updateTokenType('');
+			uni.setStorageSync('userinfo', null)
 			uni.navigateTo({
 				url: `/pages/account/login/login`
-			})
+			});
 		}
 	},
 	computed: {
@@ -140,17 +170,24 @@ export default {
 	background: #e0e0e0;
 	.top {
 		width: 100%;
-		height: 30%;
+		height: 24%;
 		background-color: #fff;
 		display: flex;
+		position: relative;
+		.more {
+			position: absolute;
+			top: 0;
+			right: 5%;
+		}
 		.img-avatar {
 			flex-basis: 28%;
 			display: flex;
 			align-items: center;
 			justify-content: center;
 			.img {
-				width: 60%;
-				height: 28%;
+				width: 90%;
+				height: 54%;
+				border-radius: 50%;
 			}
 		}
 		.userinfo {
@@ -183,22 +220,28 @@ export default {
 		}
 	}
 	.btn-list {
-		margin-top: 2rem;
-		background-color: #fff;
-		height: 46%;
-		.item {
-			height: 25%;
-			border-bottom: 1px solid #e0e0e0;
+		margin-top: 3rem;
+		height: 62%;
+		display: flex;
+		flex-direction: column;
+		.my-calendar {
+			flex-basis: 60%;
+			background-color: aqua;
+		}
+		.list {
+			flex-basis: 12%;
+			margin-top: 2rem;
+			background-color: #fff;
 			display: flex;
+			justify-content: space-around;
 			align-items: center;
-			justify-content: space-between;
-			.left {
-				width: 30%;
-				padding-left: 0.5rem;
-				display: flex;
-				align-items: center;
-				justify-content: space-between;
-				background-color: #fff;
+			.item {
+				text-align: center;
+				.left {
+					display: flex;
+					flex-direction: column;
+					align-items: center;
+				}
 			}
 		}
 	}

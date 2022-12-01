@@ -1,6 +1,7 @@
 <template>
 	<view class="page-container">
 		<view style="height: 4vh;"></view>
+		<view class="top-nav"><view>校园疫情防控App</view></view>
 		<swiper class="swiper" circular indicator-dots autoplay interval="4000" duration="2000">
 			<swiper-item>
 				<view class="swiper-item"><image src="../../../static/b1.jpg" style="width: 100%;border-radius: 10px;" mode=""></image></view>
@@ -99,7 +100,7 @@ export default {
 	}
 	.swiper {
 		width: 100%;
-		height: 24vh;
+		height: 22vh;
 		.swiper-item {
 			width: 95%;
 			height: 100%;
@@ -141,7 +142,7 @@ export default {
 				.func-remark {
 					flex: 1;
 					color: #838383;
-					font-size: 14rpx;
+					font-size: 20rpx;
 					padding-left: 20rpx;
 				}
 				.red-circle {

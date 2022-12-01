@@ -19,6 +19,7 @@ export default {
 	},
 	methods: {
 		backIndex() {
+			console.log(this.tokenType);
 			switch (this.tokenType) {
 				case '学生':
 					uni.navigateTo({

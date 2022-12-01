@@ -118,6 +118,9 @@ export default {
 	},
 	created() {
 		this.getMsgList();
+		setInterval(() => {
+			this.getMsgList();
+		}, 60000);
 		this.getHistoryList();
 	},
 	data() {

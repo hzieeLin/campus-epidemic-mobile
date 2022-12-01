@@ -100,7 +100,7 @@ export default {
 	}
 	.swiper {
 		width: 100%;
-		height: 26vh;
+		height: 22vh;
 		.swiper-item {
 			width: 100%;
 			height: 100%;
@@ -141,7 +141,7 @@ export default {
 				.func-remark {
 					flex: 1;
 					color: #838383;
-					font-size: 14rpx;
+					font-size: 20rpx;
 					padding-left: 20rpx;
 				}
 				.red-circle {

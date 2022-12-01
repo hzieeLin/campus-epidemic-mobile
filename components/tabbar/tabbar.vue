@@ -1,9 +1,9 @@
 <template>
 	<view class="uni-tabbar">
-		<u-tabbar :fixed="true">
-			<u-tabbar-item text="功能页" icon="home" @click="click"></u-tabbar-item>
-			<u-tabbar-item text="扫一扫" icon="scan" @click="click" v-show="tokenType!=='隔离人员'"></u-tabbar-item>
-			<u-tabbar-item text="个人中心" icon="account-fill" @click="click"></u-tabbar-item>
+		<u-tabbar :fixed="true" activeColor="#d81e06" inactiveColor="#7d7e80">
+			<u-tabbar-item text="功能页"  icon="home" @click="click"></u-tabbar-item>
+			<u-tabbar-item text="扫一扫"  icon="scan" @click="click" v-show="tokenType!=='隔离人员'"></u-tabbar-item>
+			<u-tabbar-item text="个人中心"  icon="account-fill" @click="click"></u-tabbar-item>
 		</u-tabbar>
 	</view>
 </template>
@@ -22,6 +22,8 @@ export default {
 		}
 	},
 	mounted() {
+		this.tabbar = uni.getStorageSync('tabbar')
+		console.log(this.tabbar);
 		switch(this.tokenType) {
 			case '学生':
 					this.tabbar = [...this.stuPath]
@@ -54,10 +56,9 @@ export default {
 														url: '/pages/student/index/back'
 													})
 												}else if(rst.indexOf('出校') >= 0) {
-													console.log('出校');
 													OutSchool().then(res => {
 														uni.navigateTo({
-															url: '/pages/common/leaveSuccess/leaveSuccess'
+															url: '/pages/common/leaveSuccess/leaveSuccess?msg=0'
 														})
 													})
 												}

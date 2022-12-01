@@ -4,14 +4,13 @@
 			<view>各位同学：目前部分省市出现了阳性病例，疫情防控形势严峻。请各位同学克服麻痹思想和侥幸心理，非必要不出校。</view>
 			<view>=======================</view>
 			<view>请假规则： 务必仔细阅读</view>
-			<view>若钉钉请假时间为4月3日 12:00-14:00</view>
+			<view>对自己己负责、对他人负责的态度，按时、如实上报健康信息。</view>
 		</view>
 		<view class="form">
 			<view class="form-item">
 				<view class="form-item-label">1.当前地点</view>
 				<view class="form-item-content">
 					<u--text :text="formData.preciseArea" size="30"></u--text>
-					<!-- <u--text text="浙江省杭州市西湖区德利希大厦学院路28号" size="30"></u--text> -->
 					<u-icon name="reload" @click="getLoaction"></u-icon>
 				</view>
 			</view>
@@ -22,8 +21,8 @@
 					  v-model="formData.temperatureAbnormal"
 					  placement="column"
 					>
-					<u-radio label="是" name="0" size="40" :customStyle="{marginBottom: '8px'}"></u-radio>
-					<u-radio label="否" name="1" size="40"></u-radio>
+					<u-radio label="是" name="0" size="40" labelSize="30" :customStyle="{marginBottom: '8px'}"></u-radio>
+					<u-radio label="否" name="1" size="40" labelSize="30"></u-radio>
 					</u-radio-group>
 				</view>
 			</view>
@@ -34,8 +33,8 @@
 					  v-model="formData.abnormalSymptoms"
 					  placement="column"
 					>
-					<u-radio label="是" name="0" size="40" :customStyle="{marginBottom: '8px'}"></u-radio>
-					<u-radio label="否" name="1" size="40"></u-radio>
+					<u-radio label="是" name="0" size="40" labelSize="30" :customStyle="{marginBottom: '8px'}"></u-radio>
+					<u-radio label="否" name="1" size="40" labelSize="30"></u-radio>
 					</u-radio-group>
 				</view>
 			</view>
@@ -45,9 +44,9 @@
 					<u-radio-group
 					  v-model="formData.healthCode"
 					>
-					<u-radio label="绿" name="0" size="40" :customStyle="{marginRight: '8px'}"></u-radio>
-					<u-radio label="黄" name="1" size="40" :customStyle="{marginRight: '8px'}"></u-radio>
-					<u-radio label="红" name="2" size="40"></u-radio>
+					<u-radio label="绿" name="0" size="40" labelSize="30" :customStyle="{marginRight: '8px'}"></u-radio>
+					<u-radio label="黄" name="1" size="40" labelSize="30" :customStyle="{marginRight: '8px'}"></u-radio>
+					<u-radio label="红" name="2" size="40" labelSize="30" ></u-radio>
 					</u-radio-group>
 				</view>
 			</view>
@@ -58,8 +57,8 @@
 					  v-model="formData.promise"
 					  placement="column"
 					>
-					<u-radio label="是" name="0" size="40" :customStyle="{marginBottom: '8px'}"></u-radio>
-					<u-radio label="否" name="1" size="40"></u-radio>
+					<u-radio label="是" name="0" size="40" labelSize="30" :customStyle="{marginBottom: '8px'}"></u-radio>
+					<u-radio label="否" name="1" size="40" labelSize="30"></u-radio>
 					</u-radio-group>
 				</view>
 			</view>
@@ -78,7 +77,7 @@
 		data() {
 			return {
 				formData: {
-					preciseArea: '浙江省杭州市西湖区德利希大厦学院路',
+					preciseArea: '',
 					temperatureAbnormal: null,
 					abnormalSymptoms: null,
 					healthCode: null,

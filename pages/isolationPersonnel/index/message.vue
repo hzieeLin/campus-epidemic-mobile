@@ -16,6 +16,7 @@
 				<view class="item-centent">
 					<view>反馈类型：{{ item.type === 1 ? '物质请求' : '意见申诉' }}</view>
 					<view>反馈内容：{{ item.message }}</view>
+					<view>反馈时间：{{ item.createTime }}</view>
 				</view>
 				<view class="item-bottom">
 					<view>由{{ userinfo.name }}提交</view>
@@ -50,9 +51,7 @@ export default {
 			inputValue: '',
 			inputDisabled: true,
 			showDetailVisible: 1,
-			historyList: [],
-			charList: [],
-			detailList: { id: '1123123213124', name: '张三', isRemember: 1, startTime: '2022-09-22 00:00:00', result: 1 }
+			historyList: []
 		};
 	},
 	created() {
@@ -65,7 +64,7 @@ export default {
 				pageSize: 10
 			}).then(res => {
 				console.log(res);
-				this.topNum = res.total
+				this.topNum = res.data.length
 				res.data.forEach(item => {
 					this.historyList.unshift(item)
 				})
